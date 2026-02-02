@@ -23,6 +23,7 @@
       "package": "com.chloegregoire.miau"
     },
     "web": {
+      "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },

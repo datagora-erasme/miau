@@ -7,7 +7,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, Text } from 'react-native';
 
 export default function TabTwoScreen() {
   return (
@@ -21,6 +21,7 @@ export default function TabTwoScreen() {
           style={styles.headerImage}
         />
       }>
+      <Text className="bg-blue-500">Bonjour</Text>
       <ThemedView style={styles.titleContainer}>
         <ThemedText
           type="title"
