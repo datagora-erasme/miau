@@ -1,4 +1,3 @@
-import Constants, { ExecutionEnvironment } from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import DocumentScanner from 'react-native-document-scanner-plugin';
@@ -6,11 +5,7 @@ import DocumentScanner from 'react-native-document-scanner-plugin';
 export default function Test() {
 
     const [scannedImages, setScannedImages] = useState<string[]>([]);
-    const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient
     const scanDocument = async () => {
-        // if (isExpoGo) {
-        //     return
-        // }
 
         // start the document scanner
         const { scannedImages: results } = await DocumentScanner.scanDocument()

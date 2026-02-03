@@ -21,7 +21,7 @@ export default function StepOne() {
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
+                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
                     </View>
                 </View>
             </View>

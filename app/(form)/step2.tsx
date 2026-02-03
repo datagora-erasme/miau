@@ -3,6 +3,7 @@ import { Link, useRouter } from 'expo-router'
 import { View, Text, TextInput  } from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
@@ -19,15 +20,17 @@ export default function StepOne() {
                 <Stepper currentStep={2}></Stepper>
                 <View className="gap-2">
                     <Text>Validez le contrôle en cours</Text>
-                    <Text className='bg-white'>{lastControle}</Text>
+                    <Text className='bg-white p-4'>{lastControle}</Text>
                 </View>
-                <View className="bg-white flex-row border-l-2  border-blue-500">
-
+                <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
+                    <View className="m-2">
+                        <MaterialCommunityIcons name="information-variant-circle-outline" size={20} color="#3b82f6"/>
+                    </View>
                     <Text className=" m-2">Le contrôle doit avoir été crée dans l&apos;espace Grist</Text>
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
+                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
                     </View>
                 </View>
             </View>
