@@ -5,7 +5,7 @@ import Stepper from '../../components/stepper'
 import Button from '../../components/button'
 
 
-export default function StepOne() {
+export default function StepThree() {
     const router = useRouter()
 
     const handleNext = () => {
@@ -14,7 +14,12 @@ export default function StepOne() {
     return(
         <View className="">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
-                <Stepper currentStep={1}></Stepper>
+                <Text className="text-xl font-extrabold">
+                    Ajout de justificatifs à un dossier d&apos;administré
+                </Text>
+                <View className="items-center">
+                    <Stepper currentStep={3}></Stepper>
+                </View>
                 <View className="gap-2">
                     <Text>Séléctionner un administré</Text>
                     <TextInput placeholder="Tappez les première lettres" placeholderTextColor='black' className='bg-white'></TextInput>

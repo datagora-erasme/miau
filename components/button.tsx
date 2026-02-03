@@ -8,7 +8,6 @@ interface ButtonProps {
 
 }
 export default function Button({title, bgColor, onPress}: ButtonProps) {
-    console.log(bgColor)
     const fontColor = bgColor.includes('red') || bgColor.includes('gray') ? "text-white" : "text-red-600"
 
     return (
