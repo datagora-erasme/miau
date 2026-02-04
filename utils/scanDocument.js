@@ -8,7 +8,7 @@ export const scanDocument = async () => {
         return result?.scannedImages
     } catch (error) {
         console.error("erreur scan", error)
-        return null
+        return []
     }
 
 }

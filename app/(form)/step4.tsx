@@ -3,6 +3,8 @@ import { useRouter } from 'expo-router'
 import { View, Text} from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
+import  {useForm}  from '../../store/useFormStore';
+
 
 
 interface Document {
@@ -19,10 +21,10 @@ interface Type {
 export default function StepFour() {
     const router = useRouter()
 
-    const [documents, setDocuments] = useState<Document[]>([])
+    const documents = useForm((state) => state.documents)
+    const docs = documents?.length
 
-
-    const person = `Natacha Belaud`
+    const person = useForm((state) => state.beneficiary)
     
     const handleNext = () => {
         router.push('/(form)/step4')
@@ -37,18 +39,20 @@ export default function StepFour() {
                 </View>
                 <View className=" bg-white p-3 gap-2 ">
                     <View className="flex-row gap-3">
-                        <Text>Vous allez transmettre:</Text>
-                        <Text className='font-extrabold'>0 pièces</Text>
+                        <Text className="italic">Vous allez transmettre :</Text>
+                        {docs&& 
+                        <Text className='font-extrabold'>{docs} pièce{docs > 1 ? "s" : ""}</Text>
+                        }
                     </View>
-                        {documents.map((scan, index) => {
+                        {documents && documents.map((doc, index) => {
                             return (
                             <View key={index} className="bg-gray-200 p-3 gap-3 ">
-                                <Text>
+                                <Text className="font-extrabold">
                                     Pièce n°{index + 1}
                                 </Text>
                                 <View className="flex-row gap-3">
-                                    <Text>hello</Text>
-                                    <Text className="weight-extrabold">woww</Text>
+                                    <Text className="italic">Type</Text>
+                                    <Text className="font-extrabold">{doc.type}</Text>
                                 </View>
                             </View>
 
@@ -60,7 +64,7 @@ export default function StepFour() {
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={null} title="Suivant" bgColor='bg-red-700' onPress={handleNext} desabled={false}></Button>
+                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-700' onPress={handleNext} disabled={false}></Button>
                     </View>
                 </View>
             </View>

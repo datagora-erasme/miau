@@ -10,14 +10,14 @@ interface DataItem {
 interface DropDownProps {
     data: DataItem[]
     placeholder: string
-    onChange : (item :any) => void
+    onChange : (item :string) => void
     search: boolean
 }
 
 export default function DropDown({data, placeholder, onChange, search }: DropDownProps) {
     return (
         <Dropdown
-        style={{backgroundColor:"white", height:50}}
+        style={{backgroundColor:"white", height:50, paddingHorizontal:10}}
         data={data}
         search={search}
         searchPlaceholder="rechercher"

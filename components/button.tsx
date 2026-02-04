@@ -8,19 +8,20 @@ interface ButtonProps {
     onPress: ()=> void ;
     bgColor: string
     iconName: MaterialIconName | null
-    desabled: boolean
+    disabled: boolean
 
 
 
 
 }
-export default function Button({iconName, title, bgColor, onPress, desabled}: ButtonProps) {
+export default function Button({iconName, title, bgColor, onPress, disabled}: ButtonProps) {
     const fontColor = bgColor.includes('red') || bgColor.includes('gray') ? "text-white" : "text-red-600"
     const iconColor = bgColor.includes('red') || bgColor.includes('gray') ? "white" : "red"
 
     return (
         <TouchableOpacity
-        className={`${desabled ? "bg-gray-400" : bgColor} p-4 rounded-xl items-center justify-center flex-row`}
+        disabled={disabled}
+        className={`${disabled ? "bg-gray-400" : bgColor} p-4 rounded-xl items-center justify-center flex-row`}
         onPress={onPress}>
             {iconName && 
             <MaterialCommunityIcons name={iconName} color={iconColor} size={20}></MaterialCommunityIcons>}
