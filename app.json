@@ -4,7 +4,7 @@
     "slug": "miau",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/demo/icon.png",
     "scheme": "miau",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -25,7 +25,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/demo/favicon.png"
     },
     "plugins": [
       "expo-router",

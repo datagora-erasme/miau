@@ -1,4 +1,8 @@
 import {View, Text} from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+
+
 
 interface StepperProps {
     currentStep: number
@@ -10,12 +14,20 @@ export default function Stepper({currentStep}: StepperProps) {
             <Text className="text-xl font-extrabold">
                     Ajout de justificatifs à un dossier d&apos;administré
                 </Text>
-            <View className='flex-row gap-10 justify-center '>
+            <View className='flex-row gap-5 justify-center h-[2em] '>
                 {steps.map((step, index) => {
                     
                     const isActive = currentStep === step
+                    const isDone = currentStep > step
                     return(
-                        <Text key={index} className={`${isActive ? "rounded-full bg-red-200" : ""}`} >{step}</Text>
+                        <View key={index} className={` aspect-square rounded-full items-center justify-center ${isActive ? " bg-red-200" : isDone ? "bg-green-200" : "" }`}
+                        >
+                        {isDone ? (
+                            <MaterialCommunityIcons name="check" color={"black"} size={20}></MaterialCommunityIcons>
+                        ) :
+                        <Text className={`text-center ${isActive ? "font-extrabold" : "italic"}`}>{step}</Text>
+                        }
+                        </View>
                     )
                 })}
 
