@@ -4,16 +4,37 @@ import {scanDocument} from "../../utils/scanDocument"
 import { View, Text} from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import DropDown from '../../components/dropdown'
 
 
+interface Document {
+    uri: string
+    type: string
+    beneficiaryId: number
+}
+
+interface Type {
+    label: string
+    value: string
+}
 
 export default function StepThree() {
     const [scannedImages, setScannedImages] = useState<string[]>([]);
-    
 
-    const person = "Natacha Belaud"
+    // uniquement pour debugger, à changer par un localstorage peut etre ? 
+    const [type, setType] = useState<Type[]>([])
+    
+    const typeDoc = (type: any) => {
+        setType(type.value)
+    }
+    //
+    const [documents, setDocuments] = useState<Document[]>([])
+
+
+    const person = `Natacha Belaud ${type}`
+    const documentTypes = [{label: "Tiket de caisse", value: "Ticket de caisse"}, {label:"Echéancier", value: "Echéancier" }, {label: "Certificat Médical", value: "Certificat Médical" }]
     const router = useRouter()
+
     const handleScan = async () => {
         const result = await scanDocument()
         if ( result && result.length > 0) {
@@ -22,7 +43,7 @@ export default function StepThree() {
         }
     }
     const handleNext = () => {
-        router.push('/(form)/step2')
+        router.push('/(form)/step4')
     }
     return(
         <View className="">
@@ -32,10 +53,24 @@ export default function StepThree() {
                     <Text>Dossier :</Text>
                     <Text className="font-extrabold">{person}</Text>
                 </View>
-                <View className=" bg-white p-3 gap-2">
+                <View className=" bg-white p-3 gap-2 ">
                     <View className="flex-row gap-3">
                         <Text>Nombre de pièces:</Text>
-                        <Text className='font-extrabold'>{scannedImages.length}</Text>
+                        <Text className='font-extrabold'>0</Text>
+                    </View>
+                        {scannedImages.map((scan, index) => {
+                            return (
+                            <View key={index} className="bg-gray-200 p-3 gap-3 ">
+                                <Text>
+                                    Pièce n°{index + 1}
+                                </Text>
+                                <DropDown data={documentTypes} placeholder="Selectionner un type de document" onChange={typeDoc} search={false}/>
+                            </View>
+
+                            )
+                        })}
+                    <View>
+
                     </View>
                     <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-700" onPress={(handleScan)}></Button>
                 </View>
