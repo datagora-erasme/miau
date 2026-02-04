@@ -1,13 +1,16 @@
 import { Link, useRouter } from 'expo-router'
 import {useState} from 'react'
-import { View, Text, TextInput  } from 'react-native'
+import { View, Text  } from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
 import DropDown from '../../components/dropdown'
+import  {useForm}  from '../../store/useFormStore';
 
 
 export default function StepOne() {
     const router = useRouter()
+    const addBeneficiary = useForm((state) => state.addData)
+
     const data = [{label: "Mme Dupuis", value:"Mme Dupuis"}, {label:"M. Jacko", value: "M. Jacko"}]
     const [beneficiary, setBeneficiary] = useState(null)
 
@@ -15,7 +18,10 @@ export default function StepOne() {
         setBeneficiary(beneficiary.value)
     }
     const handleNext = () => {
-        router.push('/(form)/step2')
+        if (beneficiary) {
+            addBeneficiary({beneficiary: beneficiary})
+            router.push('/(form)/step2')
+        }
     }
     return(
         <View className="">
@@ -27,7 +33,7 @@ export default function StepOne() {
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
+                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} desabled={!beneficiary}  ></Button>
                     </View>
                 </View>
             </View>

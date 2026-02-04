@@ -60,8 +60,8 @@ export default function StepThree() {
                     </View>
                         {scannedImages.map((scan, index) => {
                             return (
-                            <View key={index} className="bg-gray-200 p-3 gap-3 ">
-                                <Text>
+                            <View key={index} className="bg-gray-200 p-3 gap-3 border-l  border-black">
+                                <Text className="font-extrabold">
                                     Pièce n°{index + 1}
                                 </Text>
                                 <DropDown data={documentTypes} placeholder="Selectionner un type de document" onChange={typeDoc} search={false}/>
@@ -72,11 +72,11 @@ export default function StepThree() {
                     <View>
 
                     </View>
-                    <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-700" onPress={(handleScan)}></Button>
+                    <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-700" onPress={(handleScan)} desabled={false}></Button>
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
+                        <Button iconName={null} title="Suivant" bgColor='bg-red-700' onPress={handleNext} desabled={!type} ></Button>
                     </View>
                 </View>
             </View>

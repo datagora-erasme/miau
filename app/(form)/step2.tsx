@@ -4,14 +4,19 @@ import { View, Text, TextInput  } from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import  {useForm}  from '../../store/useFormStore';
+
 
 
 
 export default function StepOne() {
-    const lastControle = "Contrôle du 06-2025 au 11-2025"
+    
+    const addControl = useForm((state)=> state.addData)
+    const lastControl = "Contrôle du 06-2025 au 11-2025"
     const router = useRouter()
 
     const handleNext = () => {
+        addControl({control: lastControl})
         router.push('/(form)/step3')
     }
     return(
@@ -20,7 +25,7 @@ export default function StepOne() {
                 <Stepper currentStep={2}></Stepper>
                 <View className="gap-2">
                     <Text>Validez le contrôle en cours</Text>
-                    <Text className='bg-white p-4'>{lastControle}</Text>
+                    <Text className='bg-white p-4'>{lastControl}</Text>
                 </View>
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">
@@ -30,7 +35,7 @@ export default function StepOne() {
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} ></Button>
+                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} desabled={false} ></Button>
                     </View>
                 </View>
             </View>
