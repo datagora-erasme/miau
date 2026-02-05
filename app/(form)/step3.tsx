@@ -16,7 +16,7 @@ interface Document {
 
 export default function StepThree() {
     const router = useRouter()
-    const documentTypes = [{label: "Tiket de caisse", value: "Ticket de caisse"}, {label:"Echéancier", value: "Echéancier" }, {label: "Certificat Médical", value: "Certificat Médical" }]
+    const documentTypes = [{label: "Ticket de caisse", value: "Ticket de caisse"}, {label:"Echéancier", value: "Echéancier" }, {label: "Certificat Médical", value: "Certificat Médical" }]
 
     const person = useForm((state) => state.beneficiary)
     const AddData = useForm((state) => state.addData)
@@ -52,6 +52,15 @@ export default function StepThree() {
 
         }
     }
+
+    const handlePrevious = () => {
+        
+        router.back()
+    }
+
+    const handleCancel = () => {
+        router.replace('./step1')
+    }
     
     return(
         <View className="">
@@ -66,14 +75,14 @@ export default function StepThree() {
                         <Text>Nombre de pièces:</Text>
                         <Text className='font-extrabold'>{0}</Text>
                     </View>
-                    {scannedImages && scannedImages.map((scan, index) => {
+                    {scannedImages ? scannedImages.map((scan, index) => {
                         return(
                             <View key={index} className="bg-gray-200 p-3 gap-3">
                                 <Text className="font-extrabold">Pièce n°{index+1}</Text>
                                 <DropDown data={documentTypes} placeholder="Selectionner le type de document" onChange={typeDoc} search={false} ></DropDown>
                             </View>
                         )
-                    })
+                    }) : null
                     }
 
                     <View>
@@ -82,7 +91,9 @@ export default function StepThree() {
                     <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-600" onPress={(handleScan)} disabled={isMissingType}></Button>
                 </View>
                 <View>
-                    <View className="self-end">
+                    <View className="flex-row justify-between">
+                        <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
+                        <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
                         <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={documents.length === 0} ></Button>
                     </View>
                 </View>

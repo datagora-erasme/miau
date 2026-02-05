@@ -21,15 +21,12 @@ export default function Button({iconName, title, bgColor, onPress, disabled}: Bu
     return (
         <TouchableOpacity
         disabled={disabled}
-        style={{borderWidth: disabled ? 0 : 1,
-                borderColor:"#DC2626"
-        }}
-        
-        className={`p-4 rounded-xl items-center justify-center flex-row gap-2 ${disabled ? "bg-gray-400" : `${bgColor}` }  ` }
+        style={{borderWidth: disabled ? 0 : 1, borderColor:"#DC2626"}}
+        className={`p-3 rounded-xl items-center justify-center flex-row gap-2 ${disabled ? "bg-gray-400" : `${bgColor}` }  ` }
         onPress={onPress}>
-            {iconName && 
-            <MaterialCommunityIcons name={iconName} color={iconColor} size={20}></MaterialCommunityIcons>}
-            <Text className={`${fontColor}`}>{title}</Text>
+            {iconName ? 
+            <MaterialCommunityIcons name={iconName} color={iconColor} size={20}></MaterialCommunityIcons> : null }
+            <Text className={`${fontColor} font-extrabold`}>{title}</Text>
         </TouchableOpacity>
     )
 }

@@ -20,6 +20,18 @@ export default function StepFour() {
         
         router.push('/(form)/step5')
     }
+
+    const handlePrevious = () => {
+        
+        router.back()
+    }
+
+    const handleCancel = () => {
+        router.replace('./step3')
+    }
+
+
+    
     return(
         <View className="">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
@@ -35,7 +47,7 @@ export default function StepFour() {
                         <Text className='font-extrabold'>{docs} pièce{docs > 1 ? "s" : ""}</Text>
                         }
                     </View>
-                        {documents && documents.map((doc, index) => {
+                        {documents ? documents.map((doc, index) => {
                             return (
                             <View key={index} className="bg-gray-200 p-3 gap-3 ">
                                 <Text className="font-extrabold">
@@ -48,16 +60,16 @@ export default function StepFour() {
                             </View>
 
                             )
-                        })}
+                        }) : null }
                     <View>
 
                     </View>
                 </View>
-                <View>
-                    <View className="self-end">
+                    <View className="flex-row justify-between w-full">
+                        <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
+                        <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
                         <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-600' onPress={handleNext} disabled={false}></Button>
-                    </View>
-                </View>
+                    </View> 
             </View>
         </View>
     )

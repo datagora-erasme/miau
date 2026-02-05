@@ -31,8 +31,8 @@ export default function StepFive() {
                         <Text className="font-extrabold">{documents?.length}</Text>
                     </View>
                 </View>
-                <View className=" h-[30%]">
-                    <Image source={require("../../assets/images/cat.png")} resizeMode="contain" className=" h-full  " />
+                <View className=" h-[20%]">
+                    <Image source={require("../../assets/images/cat.png")} resizeMode="contain" className=" h-full w-full  " />
                 </View>
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">
@@ -40,10 +40,8 @@ export default function StepFive() {
                     </View>
                     <Text className=" m-2">Les données vont être traités par une intelligence artificielle et ajoutés directement sur votre espace Grist.</Text>
                 </View>
-                <View>
-                    <Button iconName="plus" title="Précédent" bgColor='bg-red-600' onPress={handlePrevious} disabled={false}></Button>
-                    <Button iconName="power-standby" title="Déconnexion" bgColor='bg-white' onPress={handlelogOut} disabled={false}></Button>
-                </View>
+                <Button iconName="plus" title="Précédent" bgColor='bg-red-600' onPress={handlePrevious} disabled={false}></Button>
+                <Button iconName="power-standby" title="Déconnexion" bgColor='bg-white' onPress={handlelogOut} disabled={false}></Button>
             </View>
         </View>
 

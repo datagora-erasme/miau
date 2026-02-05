@@ -28,7 +28,7 @@ export default function StepOne() {
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={1}></Stepper>
                 <View className="gap-2">
-                    <Text>Séléctionner un administré</Text>
+                    <Text>Séléctionner un bénéficiaire</Text>
                     <DropDown data={data} placeholder="Taper les premières lettres" onChange={onChangeBeneficiary} search={true} ></DropDown>
                 </View>
                 <View>

@@ -12,7 +12,7 @@ export default function Stepper({currentStep}: StepperProps) {
     return (
         <View className="gap-5">
             <Text className="text-xl font-extrabold">
-                    Ajout de justificatifs à un dossier d&apos;administré
+                    Ajout de justificatifs à un dossier de bénéficiaire
                 </Text>
             <View className='flex-row gap-5 justify-center h-[2em] '>
                 {steps.map((step, index) => {
