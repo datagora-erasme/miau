@@ -21,7 +21,7 @@ export default function Index() {
                     <Image source={require("../assets/images/mgl.png")} resizeMode="contain" className="h-full w-full"/>
                 </View>
             </View>
-            <View className=" mx-10  gap-3 min-flex-1">
+            <View className=" mx-10  gap-3 flex-1">
                 <Text className="text-center mt-10 text-xl font-extrabold text-red-600">Contrôle d&apos;effectivité - APA</Text>
                 <View className=" bg-gray-200 p-5 gap-5 shadow-lg shadow-black">
                     <Text className="text-xl font-extrabold ">Connexion</Text>
@@ -45,11 +45,10 @@ export default function Index() {
                     </View>
                 </View>
             </View>
-            <View className="h-[15%] w-full border" >
-                <View className="border">
-                    <Image source={require("../assets/images/Vector.png")} resizeMode="" className="" />
-                </View>
-            </View>
+            <View className=" w-full h-[25%]  relative items-end  " >
+                <Image source={require("../assets/images/Vector.png")}  className="absolute  w-full h-full  " />
+                <Image source={require("../assets/images/characters.png")} resizeMode="cover"  className=" h-[100%]" style={{ aspectRatio: 1 }}/>
+            </View>h-full w-fu
         </SafeAreaView>
     )
 }
