@@ -25,7 +25,7 @@ export default function StepOne() {
                 <Stepper currentStep={2}></Stepper>
                 <View className="gap-2">
                     <Text>Validez le contrôle en cours</Text>
-                    <Text className='bg-white p-4'>{lastControl}</Text>
+                    <Text className='bg-white p-4 '>{lastControl}</Text>
                 </View>
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">
@@ -34,8 +34,10 @@ export default function StepOne() {
                     <Text className=" m-2">Le contrôle doit avoir été crée dans l&apos;espace Grist</Text>
                 </View>
                 <View>
-                    <View className="self-end">
-                        <Button iconName={null} title="suivant" bgColor='bg-red-700' onPress={handleNext} disabled={false} ></Button>
+                    <View className="flex-row justify-between">
+                        <Button iconName={null} title="Précédent" bgColor='bg-white' onPress={handleNext} disabled={false} ></Button>
+                        <Button iconName={null} title="Annuler" bgColor='bg-white' onPress={handleNext} disabled={false} ></Button>
+                        <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={false} ></Button>
                     </View>
                 </View>
             </View>

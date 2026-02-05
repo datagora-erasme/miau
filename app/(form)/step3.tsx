@@ -47,9 +47,7 @@ export default function StepThree() {
     }
     const handleNext = () => {
         if(documents.length > 0) {
-            console.log("clic")
             AddData({documents: documents})
-            console.log("clic2")
             router.push('/(form)/step4')
 
         }
@@ -81,11 +79,11 @@ export default function StepThree() {
                     <View>
 
                     </View>
-                    <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-700" onPress={(handleScan)} disabled={isMissingType}></Button>
+                    <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-600" onPress={(handleScan)} disabled={isMissingType}></Button>
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={null} title="Suivant" bgColor='bg-red-700' onPress={handleNext} disabled={documents.length === 0} ></Button>
+                        <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={documents.length === 0} ></Button>
                     </View>
                 </View>
             </View>

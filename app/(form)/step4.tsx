@@ -7,19 +7,9 @@ import  {useForm}  from '../../store/useFormStore';
 
 
 
-interface Document {
-    uri: string
-    type: string
-    beneficiaryId: number
-}
-
-interface Type {
-    label: string
-    value: string
-}
-
 export default function StepFour() {
     const router = useRouter()
+    const Form = useForm.getState()
 
     const documents = useForm((state) => state.documents)
     const docs = documents?.length
@@ -27,7 +17,8 @@ export default function StepFour() {
     const person = useForm((state) => state.beneficiary)
     
     const handleNext = () => {
-        router.push('/(form)/step4')
+        
+        router.push('/(form)/step5')
     }
     return(
         <View className="">
@@ -64,7 +55,7 @@ export default function StepFour() {
                 </View>
                 <View>
                     <View className="self-end">
-                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-700' onPress={handleNext} disabled={false}></Button>
+                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-600' onPress={handleNext} disabled={false}></Button>
                     </View>
                 </View>
             </View>

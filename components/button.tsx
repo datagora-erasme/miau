@@ -21,7 +21,11 @@ export default function Button({iconName, title, bgColor, onPress, disabled}: Bu
     return (
         <TouchableOpacity
         disabled={disabled}
-        className={`${disabled ? "bg-gray-400" : bgColor} p-4 rounded-xl items-center justify-center flex-row`}
+        style={{borderWidth: disabled ? 0 : 1,
+                borderColor:"#DC2626"
+        }}
+        
+        className={`p-4 rounded-xl items-center justify-center flex-row gap-2 ${disabled ? "bg-gray-400" : `${bgColor}` }  ` }
         onPress={onPress}>
             {iconName && 
             <MaterialCommunityIcons name={iconName} color={iconColor} size={20}></MaterialCommunityIcons>}
