@@ -6,6 +6,7 @@ interface Document {
 }
 interface Form {
     beneficiary: string | null,
+    NumeroDP: string | null
     control: string | null,
     documents: Document[] | null,
     addData: (data: Partial<Form>) => void;
@@ -17,6 +18,7 @@ interface Form {
 
 export const useForm = create<Form>((set) => ({
     beneficiary: null,
+    NumeroDP: null,
     control: null,
     documents: null,
 
@@ -29,6 +31,7 @@ export const useForm = create<Form>((set) => ({
 
     resetData: () => set({
         beneficiary: null,
+        NumeroDP: null,
         control: null,
         documents: null,
     })

@@ -1,22 +1,52 @@
 import { Link, useRouter } from 'expo-router'
+import {useState, useEffect} from 'react'
 
 import { View, Text, TextInput  } from 'react-native'
 import Stepper from '../../components/stepper'
+import DropDown from '../../components/dropdown'
 import Button from '../../components/button'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import  {useForm}  from '../../store/useFormStore';
 
 
-
-
 export default function StepOne() {
-    
-    const addControl = useForm((state)=> state.addData)
-    const lastControl = "Contrôle du 06-2025 au 11-2025"
     const router = useRouter()
+    const addControl = useForm((state)=> state.addData)
+    let data: { label: string; value: string }[] = []
+    const nDP = useForm((state) => state.NumeroDP)
+    const filtre = {"Beneficiaire_Numero_DP" : [nDP]}
+    const filtreEncode = encodeURIComponent(JSON.stringify(filtre))
 
+    useEffect(() => {
+            const fetchGristData = async () => {
+                const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
+                const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
+                const host = process.env.EXPO_PUBLIC_GRIST_HOST
+                const response = await fetch(`https://${host}/api/docs/${docId}/tables/Controles/records?filter=${filtreEncode}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                if (!response.ok) {
+                    const errorData = await response.json()
+                    console.error("erreur detail", errorData)
+                }
+                const result = await response.json()
+                result.records.map((record : any) => {
+                    data.push({label: record.fields.identifiant, value: record.fields.identifiant })
+                })
+                
+            }
+            fetchGristData();
+        }, [])
+
+    const handleChange = () => {
+        
+    }
     const handleNext = () => {
-        addControl({control: lastControl})
+        
         router.push('/(form)/step3')
     }
     return(
@@ -25,7 +55,7 @@ export default function StepOne() {
                 <Stepper currentStep={2}></Stepper>
                 <View className="gap-2">
                     <Text>Validez le contrôle en cours</Text>
-                    <Text className='bg-white p-4 '>{lastControl}</Text>
+                    <DropDown data={data}  placeholder={null} search={false} onChange={handleChange} ></DropDown>
                 </View>
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">

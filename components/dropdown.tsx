@@ -8,24 +8,25 @@ interface DataItem {
     value: string
 }
 interface DropDownProps {
+    value? : string | null
     data: DataItem[]
-    placeholder: string
+    placeholder?: string | null
     onChange : (item :string) => void
     search: boolean
 }
 
-export default function DropDown({data, placeholder, onChange, search }: DropDownProps) {
+export default function DropDown({ value, data, placeholder, onChange, search }: DropDownProps) {
     return (
         <Dropdown
+        value={value}
         style={{backgroundColor:"white", height:50, paddingHorizontal:10}}
         data={data}
         search={search}
         searchPlaceholder="rechercher"
-
-        labelField="label" // Obligatoire
+        labelField="label" 
         valueField="value"
-        placeholder={placeholder}
-        placeholderStyle={{ color: 'back', fontSize: 13, fontStyle: "italic" }} 
+        placeholder={placeholder || ""}
+        placeholderStyle={{ color: 'black', fontSize: 13, fontStyle: "italic" }} 
         onChange={onChange}/>
     )
 }

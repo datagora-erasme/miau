@@ -1,5 +1,5 @@
 import { Link, useRouter } from 'expo-router'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { View, Text  } from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
@@ -9,17 +9,47 @@ import  {useForm}  from '../../store/useFormStore';
 
 export default function StepOne() {
     const router = useRouter()
-    const addBeneficiary = useForm((state) => state.addData)
+    const addData = useForm((state) => state.addData)
+    const store = useForm((state) => state)
 
-    const data = [{label: "Mme Dupuis", value:"Mme Dupuis"}, {label:"M. Jacko", value: "M. Jacko"}]
+    let data: { label: any; value: any }[] = []
+
+    
+
+    useEffect(() => {
+        const fetchGristData = async () => {
+            const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
+            const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
+            const host = process.env.EXPO_PUBLIC_GRIST_HOST
+
+            const response = await fetch(`https://${host}/api/docs/${docId}/tables/Beneficiaires/records`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (!response.ok) {
+                const errorData = await response.json()
+                console.error("erreur detail", errorData)
+            }
+            const result = await response.json()
+            result.records.map((record : any) => {
+                data.push({label: record.fields.Beneficiaire, value: record.fields.Numero_DP})
+            })
+        }
+        fetchGristData();
+    }, [])
+
     const [beneficiary, setBeneficiary] = useState(null)
 
-    const onChangeBeneficiary = (beneficiary: any) => {
-        setBeneficiary(beneficiary.value)
+    const onChangeBeneficiary = (beneficiaryItem: any) => {
+        setBeneficiary(beneficiaryItem.label)
+        addData({beneficiary: beneficiaryItem.label, NumeroDP: beneficiaryItem.value})
     }
+
     const handleNext = () => {
         if (beneficiary) {
-            addBeneficiary({beneficiary: beneficiary})
             router.push('/(form)/step2')
         }
     }
