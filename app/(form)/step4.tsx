@@ -4,6 +4,9 @@ import { View, Text} from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
 import  {useForm}  from '../../store/useFormStore';
+import IconButton from '../../components/iconButton'
+import sendToGrist from "../../utils/sendToGrist"
+
 
 
 
@@ -16,18 +19,21 @@ export default function StepFour() {
 
     const person = useForm((state) => state.beneficiary)
     
-    const handleNext = () => {
-        
-        router.push('/(form)/step5')
+
+    const checkLog = () => {
+        console.log("form check", Form)
+    }
+    const handleSend = () => {
+        console.log("form", Form)
+        sendToGrist(Form)
     }
 
     const handlePrevious = () => {
-        
         router.back()
     }
 
     const handleCancel = () => {
-        router.replace('./step3')
+        router.push('/modal')
     }
 
 
@@ -62,13 +68,13 @@ export default function StepFour() {
                             )
                         }) : null }
                     <View>
-
+                        <IconButton name="delete-empty" onPress={checkLog}></IconButton>
                     </View>
                 </View>
                     <View className="flex-row justify-between w-full">
                         <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
                         <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
-                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-600' onPress={handleNext} disabled={false}></Button>
+                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-600' onPress={handleSend} disabled={false}></Button>
                     </View> 
             </View>
         </View>

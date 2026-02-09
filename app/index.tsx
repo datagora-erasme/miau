@@ -3,8 +3,8 @@ import Button from '../components/button'
 import {useRouter} from 'expo-router'
 import {SafeAreaView} from 'react-native-safe-area-context'
 
-
 export default function Index() {
+    
     const router = useRouter()
     const handleLogin = async () => { 
         await new Promise(resolve => setTimeout(resolve, 2000))
@@ -39,7 +39,7 @@ export default function Index() {
                     <View className="flex-row justify-center gap-2">
                         <Text className="italic">Version 0.0.1</Text>
                         <View className="bg-red-200 rounded-full px-3">  
-                            <Text className="italic">Alpha</Text>
+                            <Text className="italic">Prototype</Text>
                         </View>
 
                     </View>

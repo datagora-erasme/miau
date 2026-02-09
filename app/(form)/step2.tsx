@@ -11,7 +11,9 @@ import  {useForm}  from '../../store/useFormStore';
 
 export default function StepOne() {
     const router = useRouter()
+    const getStore = useForm((state) => state)
     const addControl = useForm((state)=> state.addData)
+    const getControl = useForm((state) => state.controlId)
     let data: { label: string; value: string }[] = []
     const nDP = useForm((state) => state.NumeroDP)
     const filtre = {"Beneficiaire_Numero_DP" : [nDP]}
@@ -22,7 +24,7 @@ export default function StepOne() {
                 const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
                 const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
                 const host = process.env.EXPO_PUBLIC_GRIST_HOST
-                const response = await fetch(`https://${host}/api/docs/${docId}/tables/Controles/records?filter=${filtreEncode}`, {
+                const response = await fetch(`https://${host}/api/docs/${docId}/tables/Controles/records?filter=${filtreEncode}&sort=-Date_du_debut_du_controle`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${apiKey}`,
@@ -34,28 +36,42 @@ export default function StepOne() {
                     console.error("erreur detail", errorData)
                 }
                 const result = await response.json()
+                console.log('result control', result.records[0])
+                addControl({controlName: result.records[0].fields.identifiant, controlId: result.records[0].id})
                 result.records.map((record : any) => {
-                    data.push({label: record.fields.identifiant, value: record.fields.identifiant })
+                    data.push({label: record.fields.identifiant, value: record.id})
                 })
                 
             }
             fetchGristData();
         }, [])
 
-    const handleChange = () => {
-        
+    const handleChange = (control: any) => {
+        addControl({controlName: control.label, controlId: control.value})
     }
+    
     const handleNext = () => {
-        
+        console.log('form', getStore)
         router.push('/(form)/step3')
     }
+
+    const handlePrevious = () => {
+        
+        router.push('/(form)/step1')
+
+    }
+
+    const handleCancel = () => {
+        router.push('/(form)/modal')
+    }
+
     return(
         <View className="">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={2}></Stepper>
                 <View className="gap-2">
                     <Text>Validez le contrôle en cours</Text>
-                    <DropDown data={data}  placeholder={null} search={false} onChange={handleChange} ></DropDown>
+                    <DropDown value={getControl} data={data}  placeholder={null} search={false} onChange={handleChange} ></DropDown>
                 </View>
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">
@@ -65,8 +81,8 @@ export default function StepOne() {
                 </View>
                 <View>
                     <View className="flex-row justify-between">
-                        <Button iconName={null} title="Précédent" bgColor='bg-white' onPress={handleNext} disabled={false} ></Button>
-                        <Button iconName={null} title="Annuler" bgColor='bg-white' onPress={handleNext} disabled={false} ></Button>
+                        <Button iconName={null} title="Précédent" bgColor='bg-white' onPress={handlePrevious} disabled={false} ></Button>
+                        <Button iconName={null} title="Annuler" bgColor='bg-white' onPress={handleCancel} disabled={false} ></Button>
                         <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={false} ></Button>
                     </View>
                 </View>

@@ -14,7 +14,10 @@ export default function FormLayout() {
                 </View>
                 <MaterialCommunityIcons name="power-standby" color="white" size={30}></MaterialCommunityIcons>
             </View>
-            <Stack screenOptions={{headerShown: false}}/>
+            <Stack screenOptions={{headerShown: false}}>
+                <Stack.Screen name="modal" options={{presentation: 'transparentModal'}}/>
+
+            </Stack>
         </SafeAreaView>
     )
 }
