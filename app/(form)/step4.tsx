@@ -11,21 +11,25 @@ import sendToGrist from "../../utils/sendToGrist"
 
 
 export default function StepFour() {
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
     const router = useRouter()
-    const Form = useForm.getState()
+    const Form = useForm((state) => state)
 
     const documents = useForm((state) => state.documents)
     const docs = documents?.length
 
     const person = useForm((state) => state.beneficiary)
     
-
-    const checkLog = () => {
-        console.log("form check", Form)
-    }
-    const handleSend = () => {
-        console.log("form", Form)
-        sendToGrist(Form)
+    const handleSend = async () => {
+        setIsLoading(true)
+        try {
+            await sendToGrist(Form)
+            router.push('/(form)/step5')
+        } catch(error) {
+            setError("Erreur : Certains documents n'ont pas pu être envoyés, veuillez ressayer.")
+        }
+        setIsLoading(false)
     }
 
     const handlePrevious = () => {
@@ -47,6 +51,7 @@ export default function StepFour() {
                     <Text className="font-extrabold">{person}</Text>
                 </View>
                 <View className=" bg-white p-3 gap-2 ">
+                    {error ? <Text className=" text-red-600">{error}</Text> : null }
                     <View className="flex-row gap-3">
                         <Text className="italic">Vous allez transmettre :</Text>
                         {docs&& 
@@ -68,13 +73,12 @@ export default function StepFour() {
                             )
                         }) : null }
                     <View>
-                        <IconButton name="delete-empty" onPress={checkLog}></IconButton>
                     </View>
                 </View>
                     <View className="flex-row justify-between w-full">
                         <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
                         <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
-                        <Button iconName={"check-circle-outline"} title="Envoyer" bgColor='bg-red-600' onPress={handleSend} disabled={false}></Button>
+                        <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading}></Button>
                     </View> 
             </View>
         </View>

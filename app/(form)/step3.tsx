@@ -8,10 +8,7 @@ import  {useForm}  from '../../store/useFormStore';
 import DropDown from '../../components/dropdown'
 import IconButton from '../../components/iconButton'
 
-interface Document {
-    uri: string
-    type: string 
-}
+
 
 
 
@@ -24,7 +21,6 @@ export default function StepThree() {
     const AddDocument = useForm((state) => state.addDocument)
     const updateDocument = useForm((state) => state.updateDocument)
     const deleteDocument = useForm((state) => state.deleteDocument)
-    const resetData = useForm((state) => state.resetData)
     const StoredDocs = useForm((state) => state.documents)
     const AllTyped = StoredDocs && StoredDocs.length > 0 && StoredDocs.every((StoredDoc) => StoredDoc.type !== null )
     const CanAdd = StoredDocs.length === 0 || AllTyped
@@ -33,8 +29,8 @@ export default function StepThree() {
     const handleScan = async () => {
         const result = await scanDocument()
         if ( result && result.length > 0) {
-            AddDocument({uri: result[0], type: null})
-            
+            AddDocument({uri: result, type: null})    
+            console.log('store', useForm.getState())
         }
     }
     const typeDoc = (item: any, index: number ) => {
@@ -62,6 +58,7 @@ export default function StepThree() {
 
     }
     const handleNext = () => {
+        console.log('formapresscans', Store)
         router.push('/(form)/step4')
 
     }

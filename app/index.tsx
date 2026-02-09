@@ -2,9 +2,11 @@ import {View, Text, TextInput, Image } from 'react-native'
 import Button from '../components/button'
 import {useRouter} from 'expo-router'
 import {SafeAreaView} from 'react-native-safe-area-context'
+import Constants from 'expo-constants';
+
 
 export default function Index() {
-    
+    const appVersion = Constants.expoConfig?.version
     const router = useRouter()
     const handleLogin = async () => { 
         await new Promise(resolve => setTimeout(resolve, 2000))
@@ -37,7 +39,7 @@ export default function Index() {
                         <Button iconName={null} title={"Connexion"} bgColor={"bg-red-600"} onPress={handleLogin} disabled={false}/>
                     </View>
                     <View className="flex-row justify-center gap-2">
-                        <Text className="italic">Version 0.0.1</Text>
+                        <Text className="italic">Version {appVersion}</Text>
                         <View className="bg-red-200 rounded-full px-3">  
                             <Text className="italic">Prototype</Text>
                         </View>

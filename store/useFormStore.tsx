@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 interface Document {
-    uri: string ,
+    uri: string[] ,
     type: string | null,
 }
 interface Form {
@@ -14,6 +14,7 @@ interface Form {
     addDocument: (newDocument: Document) => void,
     updateDocument: (index: number, type: string) => void
     deleteDocument: (index: number) => void
+    deleteDocumentByUri: (uri: string[]) => void
     resetData: () => void;
 }
 
@@ -53,6 +54,14 @@ export const useForm = create<Form>((set) => ({
         const docs = state.documents.filter((_, i) => i !== index )
         return {documents: docs}
 
+    }),
+
+    deleteDocumentByUri: (uri) => set((state) => {
+        if (!state.documents) {
+            return state
+        }
+        const docs = state.documents.filter((doc) => doc.uri !== uri)
+        return {documents: docs}
     }),
 
     resetData: () => set({
