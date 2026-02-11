@@ -5,6 +5,7 @@ import { zustandStorage } from '../lib/storage'
 interface Document {
   uri: string[];
   type: string | null;
+  name: number | null
 }
 interface Form {
   beneficiary: string | null;
@@ -46,10 +47,12 @@ export const useForm = create<Form>()(persist((set) => ({
       }
       const docs = [...state.documents];
       const uri = docs[index].uri;
-      const updatedDoc = { uri: uri, type: type };
+      const name = docs[index].name
+      const updatedDoc = { uri: uri, type: type, name: name };
       docs[index] = updatedDoc;
       return { documents: docs };
     }),
+
 
   deleteDocument: (index) =>
     set((state) => {
@@ -82,7 +85,6 @@ export const useForm = create<Form>()(persist((set) => ({
 {
     name: "form-storage",
     storage: createJSONStorage(() => zustandStorage)
-
 }
 )
 );

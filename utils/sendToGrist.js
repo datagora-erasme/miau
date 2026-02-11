@@ -8,14 +8,17 @@ export default async function sendToGrist (Form) {
     const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
     const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
     const hostName = process.env.EXPO_PUBLIC_GRIST_HOST
-
-
+    
+    
     
     
     await new Promise(resolve => setTimeout(resolve, 3000));
     for (const [index, doc] of Form.documents.entries()) {
         
         try {
+            if(index === 1) {
+                throw new Error((doc.name ).toString())  
+            }
             const formData = new FormData()
             doc.uri.forEach((d, i) => {
                 formData.append('upload', {
@@ -56,12 +59,9 @@ export default async function sendToGrist (Form) {
                 })
             })
 
-            if(index === 1) {
-                throw new Error((doc.type ).toString())  
-            }
 
             if(!response.ok) {
-                throw new Error((doc.type ).toString())
+                throw new Error((doc.name ).toString())
             }
             const result = await response.json();
             console.log("Succès Grist:", result);
@@ -71,7 +71,7 @@ export default async function sendToGrist (Form) {
             
 
         } catch(error) {
-            throw new Error(`Erreur lors de l'envoi du document "${error.message}".` || "Erreur lors de l'envoi des documents.")
+            throw new Error(`Erreur lors de l'envoi de la pièce n° ${error.message}.` || "Erreur lors de l'envoi des documents.")
         }
     }
 

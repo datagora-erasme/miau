@@ -67,7 +67,7 @@ export default function StepFour() {
                             return (
                             <View key={index} className="bg-gray-200 p-3 gap-3 ">
                                 <Text className="font-extrabold">
-                                    Pièce n°{index + 1}
+                                    Pièce n°{doc.name}
                                 </Text>
                                 <View className="flex-row gap-3">
                                     <Text className="italic">Type</Text>
@@ -83,7 +83,7 @@ export default function StepFour() {
                     <View className="flex-row justify-between w-full">
                         <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
                         <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
-                        <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading} isLoading={isLoading}></Button>
+                        <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : error ? "Réessayer" : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading} isLoading={isLoading}></Button>
                     </View> 
             </View>
         </View>

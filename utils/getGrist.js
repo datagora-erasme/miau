@@ -1,5 +1,4 @@
 export async function getGrist(endUrl) {
-    await new Promise(resolve => setTimeout(resolve, 3000));
             
     const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
     const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID

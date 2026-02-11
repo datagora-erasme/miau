@@ -29,7 +29,12 @@ export default function StepThree() {
     const handleScan = async () => {
         const result = await scanDocument()
         if ( result && result.length > 0) {
-            AddDocument({uri: result, type: null})    
+            let nextName = 1
+            const lastDoc = StoredDocs.at(-1)
+            if (lastDoc && lastDoc.name !==undefined) {
+                nextName = Number(lastDoc.name) + 1
+            }
+            AddDocument({uri: result, type: null, name: nextName})    
             console.log('store', useForm.getState())
         }
     }
@@ -51,14 +56,13 @@ export default function StepThree() {
 
     const handleDelete = (index: number) => {
         if (!StoredDocs || !StoredDocs[index]){
-        console.error('pas de scan trouvé')
         return
         }
         deleteDocument(index)
 
     }
     const handleNext = () => {
-        console.log('formapresscans', Store)
+        
         router.push('/(form)/step4')
 
     }
@@ -89,7 +93,7 @@ export default function StepThree() {
                         return(
                             <View key={index} className="bg-gray-200 p-3 gap-3 flew-row">
                                 <View className="flex-row justify-between">
-                                    <Text className="font-extrabold">Pièce n°{index+1}</Text>
+                                    <Text className="font-extrabold">Pièce n°{StoredDoc.name}</Text>
                                     <IconButton name="delete-empty" onPress={() => handleDelete(index)}></IconButton>
                                 </View>
                                 <DropDown value={StoredDoc.type} data={documentTypes} placeholder="Selectionner le type de document" onChange={(item) => typeDoc(item, index as number)} search={false} ></DropDown>
