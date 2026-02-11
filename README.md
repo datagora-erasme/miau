@@ -7,25 +7,24 @@ L'application répond aux enjeux de modernisation des processus métropolitains 
 * **Numérisation intelligente :** L'intégration d'un module de scan haute performance (`react-native-document-scanner-plugin`) pour capturer des justificatifs avec détection automatique des bords.
 * **Synchronisation Grist :** L'envoi automatisé des données et des pièces jointes vers l'API Grist, créant instantanément une ligne documentée dans la table concernée.
 
----
 
-## 🛠️ Stack Technique
+##  Stack Technique
 
 * **Framework :** [React Native](https://reactnative.dev/) avec [Expo](https://expo.dev/) (Managed Workflow & Expo Router).
 * **Scan de documents :** `react-native-document-scanner-plugin` (Module natif).
-* **Stockage local :** `react-native-mmkv` pour une persistance ultra-rapide des données.
+* **Stockage local :** `react-native-mmkv` pour une persistance rapide des données.
 * **Gestion d'état :** `Zustand`.
-* **Backend :** API REST [Grist](https://getgrist.com/).
+* **DataBase :** API REST [Grist](https://getgrist.com/).
 
----
 
-## ⚙️ Configuration (Variables d'environnement)
+
+##  Configuration (Variables d'environnement)
 
 L'application utilise le système de variables d'environnement natif d'Expo. Créez un fichier `.env` à la racine du projet. 
 
-> **Important :** Les variables doivent impérativement commencer par `EXPO_PUBLIC_` pour être injectées dans le bundle JavaScript et accessibles via `process.env`.
+> **Important :** Les variables doivent impérativement commencer par `EXPO_PUBLIC_` pour être accessibles via `process.env` et injectées dans le bundle JavaScript `.
 
-```env
+
 # Clé API de l'agent ou du service
 EXPO_PUBLIC_GRIST_API_KEY=votre_cle_api
 
@@ -35,7 +34,7 @@ EXPO_PUBLIC_GRIST_DOC_ID=votre_doc_id
 # Host de l'instance (ex: [https://docs.getgrist.com](https://docs.getgrist.com))
 EXPO_PUBLIC_GRIST_HOST=https://votre_instance_grist.com
 
-## 🏗️ Installation & Développement
+##  Installation & Développement
 
 L'utilisation de modules natifs (MMKV, Scanner) nécessite un **Development Client**.  
 Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans installation locale d'Android Studio.
@@ -45,7 +44,7 @@ Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans
 - Un compte sur **expo.dev**
 - CLI EAS installé :
 
-```bash
+
 npm install -g eas-cli
 
 # 1. Installation des dépendances
@@ -64,18 +63,18 @@ npx expo start
 Une fois le build terminé, installez l'APK sur votre appareil Android.  
 Lancez ensuite le serveur et ouvrez l'application **Miau** pour charger votre code.
 
----
 
-## 📂 Architecture du Projet
 
-```text
+##  Architecture du Projet
+
+
 app/        → Routes, pages et navigation (Expo Router)
 components/ → Composants UI réutilisables
 lib/        → Configuration de l'instance MMKV
 store/      → Gestion de l'état global (Zustand)
 utils/      → Fonctions logiques et API (getGrist, sendToGrist, scanDoc)
 
-## 📦 Profils de Build (eas.json)
+##  Profils de Build (eas.json)
 
 ### development
 Génère un client de développement (`developmentClient: true`) pour le debug.
@@ -86,9 +85,9 @@ Distribution interne (APK de test).
 ### production
 Version finale optimisée pour le déploiement.
 
----
 
-## 📋 Contexte Métier
+
+##  Contexte Métier
 
 Développé au sein de la **Métropole de Lyon**, **Miau** vise à supprimer les ruptures dans la chaîne de traitement de la donnée.
 
