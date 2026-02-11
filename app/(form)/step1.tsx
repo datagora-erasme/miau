@@ -20,7 +20,11 @@ export default function StepOne() {
     const [beneficiary, setBeneficiary] = useState(getNumero || null)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
+    const form = useForm((state) => state)
+    const then = useForm((state) => state.date)
+    const expiration_date = useForm((state) => state.expiration_date)
     const addData = useForm((state) => state.addData)
+    const resetData = useForm((state) => state.resetData)
     const [data, setData] = useState([])
 
     const loadData = async () => {
@@ -48,13 +52,18 @@ export default function StepOne() {
     }
 
     useEffect(() => {
+        const now = Date.now()
+        if (then && now - then > expiration_date ) {
+            resetData()
+            setBeneficiary(null)
+        }
         loadData();
     }, [])
 
 
     const onChangeBeneficiary = (beneficiaryItem: any) => {
         setBeneficiary(beneficiaryItem.value)
-        addData({beneficiary: beneficiaryItem.label, NumeroDP: beneficiaryItem.value})
+        addData({beneficiary: beneficiaryItem.label, NumeroDP: beneficiaryItem.value, date: Date.now()})
     }
 
     const handleNext = () => {
