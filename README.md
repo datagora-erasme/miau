@@ -1,50 +1,98 @@
-# Welcome to your Expo app 👋
+# Miau
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Le projet **Miau** est une application mobile native développée pour les agents de la Métropole de Lyon. Son objectif est de simplifier et de sécuriser la collecte de données sur le terrain en permettant une liaison directe entre la saisie d'informations et l'outil de gestion de données **Grist**.
 
-## Get started
+L'application répond aux enjeux de modernisation des processus métropolitains à travers trois fonctionnalités clés :
+* **Espace de création dédié :** Une interface de connexion permettant aux agents d'accéder à leurs formulaires métiers personnalisés.
+* **Numérisation intelligente :** L'intégration d'un module de scan haute performance (`react-native-document-scanner-plugin`) pour capturer des justificatifs avec détection automatique des bords.
+* **Synchronisation Grist :** L'envoi automatisé des données et des pièces jointes vers l'API Grist, créant instantanément une ligne documentée dans la table concernée.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Stack Technique
 
-2. Start the app
+* **Framework :** [React Native](https://reactnative.dev/) avec [Expo](https://expo.dev/) (Managed Workflow & Expo Router).
+* **Scan de documents :** `react-native-document-scanner-plugin` (Module natif).
+* **Stockage local :** `react-native-mmkv` pour une persistance ultra-rapide des données.
+* **Gestion d'état :** `Zustand`.
+* **Backend :** API REST [Grist](https://getgrist.com/).
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## ⚙️ Configuration (Variables d'environnement)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+L'application utilise le système de variables d'environnement natif d'Expo. Créez un fichier `.env` à la racine du projet. 
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+> **Important :** Les variables doivent impérativement commencer par `EXPO_PUBLIC_` pour être injectées dans le bundle JavaScript et accessibles via `process.env`.
 
-## Get a fresh project
+```env
+# Clé API de l'agent ou du service
+EXPO_PUBLIC_GRIST_API_KEY=votre_cle_api
 
-When you're ready, run:
+# ID du document Grist cible
+EXPO_PUBLIC_GRIST_DOC_ID=votre_doc_id
+
+# Host de l'instance (ex: [https://docs.getgrist.com](https://docs.getgrist.com))
+EXPO_PUBLIC_GRIST_HOST=https://votre_instance_grist.com
+
+## 🏗️ Installation & Développement
+
+L'utilisation de modules natifs (MMKV, Scanner) nécessite un **Development Client**.  
+Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans installation locale d'Android Studio.
+
+### Pré-requis
+
+- Un compte sur **expo.dev**
+- CLI EAS installé :
 
 ```bash
-npm run reset-project
-```
+npm install -g eas-cli
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+# 1. Installation des dépendances
+npm install
 
-## Learn more
+# 2. Connexion à votre compte Expo
+npx expo login
 
-To learn more about developing your project with Expo, look at the following resources:
+# 3. Génération du Client de Développement (Android)
+# Cette commande crée l'APK natif sur les serveurs d'Expo
+eas build --profile development --platform android
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# 4. Lancement du serveur de développement
+npx expo start
 
-## Join the community
+Une fois le build terminé, installez l'APK sur votre appareil Android.  
+Lancez ensuite le serveur et ouvrez l'application **Miau** pour charger votre code.
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📂 Architecture du Projet
+
+```text
+app/        → Routes, pages et navigation (Expo Router)
+components/ → Composants UI réutilisables
+lib/        → Configuration de l'instance MMKV
+store/      → Gestion de l'état global (Zustand)
+utils/      → Fonctions logiques et API (getGrist, sendToGrist, scanDoc)
+
+## 📦 Profils de Build (eas.json)
+
+### development
+Génère un client de développement (`developmentClient: true`) pour le debug.
+
+### preview
+Distribution interne (APK de test).
+
+### production
+Version finale optimisée pour le déploiement.
+
+---
+
+## 📋 Contexte Métier
+
+Développé au sein de la **Métropole de Lyon**, **Miau** vise à supprimer les ruptures dans la chaîne de traitement de la donnée.
+
+En permettant aux agents de **scanner et indexer un document directement depuis le terrain**, l'application :
+- élimine les tâches de ressaisie manuelle,
+- fiabilise la donnée collectée,
+- sécurise le flux d'information vers les outils de pilotage de la collectivité.
