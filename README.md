@@ -24,6 +24,7 @@ L'application utilise le système de variables d'environnement natif d'Expo. Cr�
 
 > **Important :** Les variables doivent impérativement commencer par `EXPO_PUBLIC_` pour être accessibles via `process.env` et injectées dans le bundle JavaScript `.
 
+```env 
 
 # Clé API de l'agent ou du service
 EXPO_PUBLIC_GRIST_API_KEY=votre_cle_api
@@ -34,18 +35,18 @@ EXPO_PUBLIC_GRIST_DOC_ID=votre_doc_id
 # Host de l'instance (ex: [https://docs.getgrist.com](https://docs.getgrist.com))
 EXPO_PUBLIC_GRIST_HOST=https://votre_instance_grist.com
 
+```
+
 ##  Installation & Développement
 
 L'utilisation de modules natifs (MMKV, Scanner) nécessite un **Development Client**.  
 Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans installation locale d'Android Studio.
 
 ### Pré-requis
+```bash
 
 - Un compte sur **expo.dev**
-- CLI EAS installé :
-
-
-npm install -g eas-cli
+- CLI EAS installé : npm install -g eas-cli
 
 # 1. Installation des dépendances
 npm install
@@ -59,6 +60,7 @@ eas build --profile development --platform android
 
 # 4. Lancement du serveur de développement
 npx expo start
+```
 
 Une fois le build terminé, installez l'APK sur votre appareil Android.  
 Lancez ensuite le serveur et ouvrez l'application **Miau** pour charger votre code.
@@ -67,12 +69,13 @@ Lancez ensuite le serveur et ouvrez l'application **Miau** pour charger votre co
 
 ##  Architecture du Projet
 
-
+```
 app/        → Routes, pages et navigation (Expo Router)
 components/ → Composants UI réutilisables
 lib/        → Configuration de l'instance MMKV
 store/      → Gestion de l'état global (Zustand)
 utils/      → Fonctions logiques et API (getGrist, sendToGrist, scanDoc)
+```
 
 ##  Profils de Build (eas.json)
 
