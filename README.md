@@ -32,8 +32,8 @@ EXPO_PUBLIC_GRIST_API_KEY=votre_cle_api
 # ID du document Grist cible
 EXPO_PUBLIC_GRIST_DOC_ID=votre_doc_id
 
-# Host de l'instance (ex: [https://docs.getgrist.com](https://docs.getgrist.com))
-EXPO_PUBLIC_GRIST_HOST=https://votre_instance_grist.com
+# Host de l'instance
+EXPO_PUBLIC_GRIST_HOST=grist.projets.votre_host_name
 
 ```
 
@@ -45,7 +45,7 @@ Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans
 ### Pré-requis
 ```bash
 
-- Un compte sur **expo.dev**
+- Un compte sur expo.dev
 - CLI EAS installé : npm install -g eas-cli
 
 # 1. Installation des dépendances
@@ -54,8 +54,7 @@ npm install
 # 2. Connexion à votre compte Expo
 npx expo login
 
-# 3. Génération du Client de Développement (Android)
-# Cette commande crée l'APK natif sur les serveurs d'Expo
+# 3. Génération du Client de Développement (Android). Cette commande crée l'APK natif sur les serveurs d'Expo.
 eas build --profile development --platform android
 
 # 4. Lancement du serveur de développement
@@ -88,13 +87,3 @@ Distribution interne (APK de test).
 ### production
 Version finale optimisée pour le déploiement.
 
-
-
-##  Contexte Métier
-
-Développé au sein de la **Métropole de Lyon**, **Miau** vise à supprimer les ruptures dans la chaîne de traitement de la donnée.
-
-En permettant aux agents de **scanner et indexer un document directement depuis le terrain**, l'application :
-- élimine les tâches de ressaisie manuelle,
-- fiabilise la donnée collectée,
-- sécurise le flux d'information vers les outils de pilotage de la collectivité.
