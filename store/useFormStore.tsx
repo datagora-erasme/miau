@@ -1,77 +1,88 @@
-import { create } from 'zustand'
+import { create } from "zustand"
+import { persist, createJSONStorage } from 'zustand/middleware'
+import { zustandStorage } from '../lib/storage'
 
 interface Document {
-    uri: string[] ,
-    type: string | null,
+  uri: string[];
+  type: string | null;
 }
 interface Form {
-    beneficiary: string | null,
-    NumeroDP: string | null
-    controlName: string | null,
-    controlId: number | null
-    documents: Document[],
-    counter: number 
-    addData: (data: Partial<Form>) => void;
-    addDocument: (newDocument: Document) => void,
-    updateDocument: (index: number, type: string) => void
-    deleteDocument: (index: number) => void
-    deleteDocumentByUri: (uri: string[]) => void
-    resetData: () => void;
+  beneficiary: string | null;
+  NumeroDP: string | null;
+  controlName: string | null;
+  controlId: number | null;
+  documents: Document[];
+  counter: number;
+  addData: (data: Partial<Form>) => void;
+  addDocument: (newDocument: Document) => void;
+  updateDocument: (index: number, type: string) => void;
+  deleteDocument: (index: number) => void;
+  deleteDocumentByUri: (uri: string[]) => void;
+  resetData: () => void;
 }
 
+export const useForm = create<Form>()(persist((set) => ({
+  beneficiary: null,
+  NumeroDP: null,
+  controlName: null,
+  controlId: null,
+  documents: [],
+  counter: 0,
 
-
-export const useForm = create<Form>((set) => ({
-    beneficiary: null,
-    NumeroDP: null,
-    controlName: null,
-    controlId: null,
-    documents: [],
-    counter: 0,
-
-    addData: (data) => set((state) => ({
-        ...state, ...data
+  addData: (data) =>
+    set((state) => ({
+      ...state,
+      ...data,
     })),
-    addDocument: (doc) => set((state) => ({
-        documents: [...state.documents, doc]
-    
+  addDocument: (doc) =>
+    set((state) => ({
+      documents: [...state.documents, doc],
     })),
 
-    updateDocument: (index, type) => set((state) => {
-        if (!state.documents) {
-            return state
-        }
-        const docs = [...state.documents]
-        const uri = docs[index].uri
-        const updatedDoc = {uri: uri, type: type}
-        docs[index] = updatedDoc
-        return {documents: docs};
-    
+  updateDocument: (index, type) =>
+    set((state) => {
+      if (!state.documents) {
+        return state;
+      }
+      const docs = [...state.documents];
+      const uri = docs[index].uri;
+      const updatedDoc = { uri: uri, type: type };
+      docs[index] = updatedDoc;
+      return { documents: docs };
     }),
 
-    deleteDocument: (index) => set((state) => {
-        if (!state.documents) {
-            return state
-        }
-        const docs = state.documents.filter((_, i) => i !== index )
-        return {documents: docs}
-
+  deleteDocument: (index) =>
+    set((state) => {
+      if (!state.documents) {
+        return state;
+      }
+      const docs = state.documents.filter((_, i) => i !== index);
+      return { documents: docs };
     }),
 
-    deleteDocumentByUri: (uri) => set((state) => {
-        if (!state.documents) {
-            return state
-        }
-        const docs = state.documents.filter((doc) => doc.uri !== uri)
-        return {documents: docs}
+  deleteDocumentByUri: (uri) =>
+    set((state) => {
+      if (!state.documents) {
+        return state;
+      }
+      const docs = state.documents.filter((doc) => doc.uri !== uri);
+      return { documents: docs };
     }),
-    
-    resetData: () => set({
-        beneficiary: null,
-        NumeroDP: null,
-        controlName: null,
-        controlId: null,
-        documents: [],
-        counter: 0
-    })
-}))
+
+  resetData: () =>
+    set({
+      beneficiary: null,
+      NumeroDP: null,
+      controlName: null,
+      controlId: null,
+      documents: [],
+      counter: 0,
+    }),
+}),
+{
+    name: "form-storage",
+    storage: createJSONStorage(() => zustandStorage)
+
+}
+)
+);

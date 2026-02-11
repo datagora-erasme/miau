@@ -4,6 +4,8 @@ import IconButton from '../../components/iconButton'
 import Button from '../../components/button'
 import {useRouter} from 'expo-router'
 import  {useForm}  from '../../store/useFormStore';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 export default function Modal() {
     const router = useRouter()
@@ -18,7 +20,8 @@ export default function Modal() {
         <View style={{ backgroundColor: 'rgba(0,0,0,0.7)' }} className="flex-1 items-center justify-center"> 
             <View className="bg-white p-7 mx-10 gap-5 shadow-lg shadow-black ">
                 <View className="flex-row justify-between">
-                    <View className="flex-row">
+                    <View className="flex-row gap-3 items-center">
+                        <MaterialCommunityIcons name="alert-circle" color="#dc2626" size={30}></MaterialCommunityIcons>
                         <Text className="font-extrabold text-lg">Attention</Text>
                     </View>
                     <IconButton name="close" onPress={() => router.back()}></IconButton>
