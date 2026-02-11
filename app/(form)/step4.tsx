@@ -4,7 +4,6 @@ import { View, Text} from 'react-native'
 import Stepper from '../../components/stepper'
 import Button from '../../components/button'
 import  {useForm}  from '../../store/useFormStore';
-import IconButton from '../../components/iconButton'
 import sendToGrist from "../../utils/sendToGrist"
 
 
@@ -22,12 +21,18 @@ export default function StepFour() {
     const person = useForm((state) => state.beneficiary)
     
     const handleSend = async () => {
+        setError(null)
         setIsLoading(true)
         try {
+            
             await sendToGrist(Form)
             router.push('/(form)/step5')
-        } catch(error) {
-            setError("Erreur : Certains documents n'ont pas pu être envoyés, veuillez ressayer.")
+        } catch(error: any) {
+            if (error.message) {
+                setError(error.message + " Veuillez Réessayer.")
+            } else {
+                setError("Erreur de connexion, vérifier le reseau internet.")
+            }
         }
         setIsLoading(false)
     }
@@ -78,7 +83,7 @@ export default function StepFour() {
                     <View className="flex-row justify-between w-full">
                         <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
                         <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
-                        <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading}></Button>
+                        <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading} isLoading={isLoading}></Button>
                     </View> 
             </View>
         </View>

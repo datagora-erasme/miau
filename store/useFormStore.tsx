@@ -10,6 +10,7 @@ interface Form {
     controlName: string | null,
     controlId: number | null
     documents: Document[],
+    counter: number 
     addData: (data: Partial<Form>) => void;
     addDocument: (newDocument: Document) => void,
     updateDocument: (index: number, type: string) => void
@@ -26,6 +27,7 @@ export const useForm = create<Form>((set) => ({
     controlName: null,
     controlId: null,
     documents: [],
+    counter: 0,
 
     addData: (data) => set((state) => ({
         ...state, ...data
@@ -63,12 +65,13 @@ export const useForm = create<Form>((set) => ({
         const docs = state.documents.filter((doc) => doc.uri !== uri)
         return {documents: docs}
     }),
-
+    
     resetData: () => set({
         beneficiary: null,
         NumeroDP: null,
         controlName: null,
         controlId: null,
         documents: [],
+        counter: 0
     })
 }))

@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 import  {useForm}  from '../../store/useFormStore';
 import { useRouter } from 'expo-router'
 import { View, Text, Image} from 'react-native'
@@ -7,13 +8,27 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function StepFive() {
     const router = useRouter()
-    const {beneficiary, documents} = useForm((s) => s)
+    const {beneficiary, counter, resetData} = useForm((s) => s)
+    const [beneficiaryName, setBeneficiaryName] = useState<string>("")
+    const [countOfDocs, setCountOfDocs] = useState<number>(0)
+    
+    
+    useEffect(() => {
+        const handleReset = () => {
+            setBeneficiaryName(beneficiary as string)
+            setCountOfDocs(counter)
+            resetData()
+        }
+        handleReset()
+    }, [])
 
-    const handlePrevious = () => {
-        router.back()
+    const handleNew = () => {
+        setCountOfDocs(0)
+        router.replace('/step1')
     }
 
     const handlelogOut = () => {
+
         router.replace('../index')
     }
     return (
@@ -24,11 +39,11 @@ export default function StepFive() {
                     <Text className="font-extrabold text-red-600 text-md">Récapitulatif</Text>
                     <View className="flex-row gap-2">
                         <Text className="italic">Dossier :</Text>
-                        <Text className="font-extrabold">{beneficiary}</Text>
+                        <Text className="font-extrabold">{beneficiaryName}</Text>
                     </View>
                     <View className="flex-row gap-2">
                         <Text className="italic">Nombre de pièces envoyées :</Text>
-                        <Text className="font-extrabold">{documents?.length}</Text>
+                        <Text className="font-extrabold">{countOfDocs}</Text>
                     </View>
                 </View>
                 <View className=" h-[20%]">
@@ -40,7 +55,7 @@ export default function StepFive() {
                     </View>
                     <Text className=" m-2">Les données vont être traités par une intelligence artificielle et ajoutés directement sur votre espace Grist.</Text>
                 </View>
-                <Button iconName="plus" title="Précédent" bgColor='bg-red-600' onPress={handlePrevious} disabled={false}></Button>
+                <Button iconName="plus" title="Nouvel ajout" bgColor='bg-red-600' onPress={handleNew} disabled={false}></Button>
                 <Button iconName="power-standby" title="Déconnexion" bgColor='bg-white' onPress={handlelogOut} disabled={false}></Button>
             </View>
         </View>

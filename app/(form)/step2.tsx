@@ -1,50 +1,61 @@
 import { Link, useRouter } from 'expo-router'
 import {useState, useEffect} from 'react'
-
-import { View, Text, TextInput  } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import Stepper from '../../components/stepper'
 import DropDown from '../../components/dropdown'
 import Button from '../../components/button'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import  {useForm}  from '../../store/useFormStore';
+import {getGrist} from '../../utils/getGrist'
 
+interface GristData {
+    id: number
+    fields: {
+        identifiant: string, 
+
+    }
+}
 
 export default function StepOne() {
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string |null>(null)
+    const [data, setData] = useState([])
     const router = useRouter()
     const getStore = useForm((state) => state)
     const addControl = useForm((state)=> state.addData)
     const getControl = useForm((state) => state.controlId)
-    let data: { label: string; value: string }[] = []
     const nDP = useForm((state) => state.NumeroDP)
     const filtre = {"Beneficiaire_Numero_DP" : [nDP]}
     const filtreEncode = encodeURIComponent(JSON.stringify(filtre))
+    const endUrl =`Controles/records?filter=${filtreEncode}&sort=-Date_du_debut_du_controle`
+
+
+    const loadData = async () => {
+        setIsLoading(true)
+        setError(null)
+        try {
+            const result = await getGrist(endUrl)
+            // throw new Error()
+            addControl({controlName: result.records[0].fields.identifiant, controlId: result.records[0].id})
+            const formatted_data =result.records.map((record : GristData) => ({
+                label: record.fields.identifiant, value: record.id
+            }))
+            setData(formatted_data)
+        } catch (error: any) {
+            console.log(error)
+            if (error.message) {
+                setError("Erreur de connexion à la base de données.")
+            } else {
+                setError('Erreur de connexion, vérifier le reseau internet.')
+            }
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
-            const fetchGristData = async () => {
-                const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
-                const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
-                const host = process.env.EXPO_PUBLIC_GRIST_HOST
-                const response = await fetch(`https://${host}/api/docs/${docId}/tables/Controles/records?filter=${filtreEncode}&sort=-Date_du_debut_du_controle`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json'
-                    }
-                })
-                if (!response.ok) {
-                    const errorData = await response.json()
-                    console.error("erreur detail", errorData)
-                }
-                const result = await response.json()
-                console.log('result control', result.records[0])
-                addControl({controlName: result.records[0].fields.identifiant, controlId: result.records[0].id})
-                result.records.map((record : any) => {
-                    data.push({label: record.fields.identifiant, value: record.id})
-                })
-                
-            }
-            fetchGristData();
-        }, [])
+        loadData();
+    }, [])
 
     const handleChange = (control: any) => {
         addControl({controlName: control.label, controlId: control.value})
@@ -69,10 +80,18 @@ export default function StepOne() {
         <View className="">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={2}></Stepper>
-                <View className="gap-2">
-                    <Text>Validez le contrôle en cours</Text>
-                    <DropDown value={getControl} data={data}  placeholder={null} search={false} onChange={handleChange} ></DropDown>
-                </View>
+                    {error ?
+                    <Text className="text-red-600">{error}</Text>
+                    : isLoading ?
+                    <View className='flex-row'>
+                        <ActivityIndicator color="grey"/>
+                        <Text>Chargement des contrôles...</Text>
+                    </View> :
+                    <View className="gap-2">
+                        <Text>Validez le contrôle en cours :</Text>
+                        <DropDown value={getControl} data={data}  placeholder={null} search={false} onChange={handleChange} ></DropDown>
+                    </View>
+                    }
                 <View className="bg-white flex-row border-l-2 border-blue-500 items-center ">
                     <View className="m-2">
                         <MaterialCommunityIcons name="information-variant-circle-outline" size={20} color="#3b82f6"/>
@@ -83,7 +102,12 @@ export default function StepOne() {
                     <View className="flex-row justify-between">
                         <Button iconName={null} title="Précédent" bgColor='bg-white' onPress={handlePrevious} disabled={false} ></Button>
                         <Button iconName={null} title="Annuler" bgColor='bg-white' onPress={handleCancel} disabled={false} ></Button>
-                        <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={false} ></Button>
+                        {error ? 
+                        <Button title="Réessayer" bgColor="bg-red-600" onPress={loadData} ></Button>
+                        :
+                        <Button title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={isLoading} ></Button>
+                        }
+                        
                     </View>
                 </View>
             </View>
