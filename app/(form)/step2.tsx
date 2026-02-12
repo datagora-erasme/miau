@@ -100,8 +100,8 @@ export default function StepOne() {
                 </View>
                 <View>
                     <View className="flex-row justify-between">
-                        <Button iconName={null} title="Précédent" bgColor='bg-white' onPress={handlePrevious} disabled={false} ></Button>
-                        <Button iconName={null} title="Annuler" bgColor='bg-white' onPress={handleCancel} disabled={false} ></Button>
+                        <Button  title="Précédent" bgColor='bg-white' onPress={handlePrevious} ></Button>
+                        <Button  title="Annuler" bgColor='bg-white' onPress={handleCancel}  ></Button>
                         {error ? 
                         <Button title="Réessayer" bgColor="bg-red-600" onPress={loadData} ></Button>
                         :

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useRouter } from 'expo-router'
 import {scanDocument} from "../../utils/scanDocument" 
 import { View, Text} from 'react-native'
@@ -109,9 +109,9 @@ export default function StepThree() {
                 </View>
                 <View>
                     <View className="flex-row justify-between">
-                        <Button iconName={null} title="Précédent" bgColor="bg-white" onPress={handlePrevious} disabled={false}></Button>
-                        <Button iconName={null} title="Annuler" bgColor="bg-white" onPress={handleCancel} disabled={false}></Button>
-                        <Button iconName={null} title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={!AllTyped} ></Button>
+                        <Button  title="Précédent" bgColor="bg-white" onPress={handlePrevious} ></Button>
+                        <Button  title="Annuler" bgColor="bg-white" onPress={handleCancel} ></Button>
+                        <Button  title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={!AllTyped} ></Button>
                     </View>
                 </View>
             </View>

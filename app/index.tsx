@@ -48,9 +48,9 @@ export default function Index() {
                 </View>
             </View>
             <View className=" w-full h-[25%]  relative items-end  " >
-                <Image source={require("../assets/images/Vector.png")}  className="absolute  w-full h-full  " />
+                <Image source={require("../assets/images/Vector.png")}  className="absolute w-full h-full" />
                 <Image source={require("../assets/images/characters.png")} resizeMode="cover"  className=" h-[100%]" style={{ aspectRatio: 1 }}/>
-            </View>h-full w-fu
+            </View>
         </SafeAreaView>
     )
 }
