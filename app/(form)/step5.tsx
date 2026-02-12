@@ -28,8 +28,7 @@ export default function StepFive() {
     }
 
     const handlelogOut = () => {
-
-        router.replace('../index')
+        router.replace('/')
     }
     return (
         <View className="">
