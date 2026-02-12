@@ -12,13 +12,8 @@ export default async function sendToGrist (Form) {
     
     
     
-    await new Promise(resolve => setTimeout(resolve, 3000));
     for (const [index, doc] of Form.documents.entries()) {
         
-        try {
-            if(index === 1) {
-                throw new Error((doc.name ).toString())  
-            }
             const formData = new FormData()
             doc.uri.forEach((d, i) => {
                 formData.append('upload', {
