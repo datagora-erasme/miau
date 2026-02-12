@@ -14,6 +14,8 @@ export default async function sendToGrist (Form) {
     
     for (const [index, doc] of Form.documents.entries()) {
         
+        try {
+           
             const formData = new FormData()
             doc.uri.forEach((d, i) => {
                 formData.append('upload', {
