@@ -13,7 +13,6 @@ export default function StepFive() {
     const {setToken} = useAuthStore((s) => s)
     const [beneficiaryName, setBeneficiaryName] = useState<string>("")
     const [countOfDocs, setCountOfDocs] = useState<number>(0)
-    console.log("compter", counter)
     
     
     useEffect(() => {

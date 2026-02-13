@@ -19,6 +19,7 @@ interface GristData {
 export default function StepOne() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string |null>(null)
+    const [info, setInfo] = useState<string |null>(null)
     const [data, setData] = useState([])
     const router = useRouter()
     const getStore = useForm((state) => state)
@@ -42,9 +43,9 @@ export default function StepOne() {
             }))
             setData(formatted_data)
         } catch (error: any) {
-            console.log(error)
-            if (error.message) {
-                setError("Erreur de connexion à la base de données.")
+            if (error.message === "Cannot read property 'fields' of undefined") {
+                
+                setInfo("Aucun contrôle trouvé pour ce ou cette bénéficiaire.")
             } else {
                 setError('Erreur de connexion, vérifier le reseau internet.')
             }
@@ -79,7 +80,9 @@ export default function StepOne() {
         <View className="">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={2}></Stepper>
-                    {error ?
+                    {info ?
+                    <Text className="font-bold">{info}</Text> :
+                    error ?
                     <Text className="text-red-600">{error}</Text>
                     : isLoading ?
                     <View className='flex-row'>
@@ -104,7 +107,7 @@ export default function StepOne() {
                         {error ? 
                         <Button title="Réessayer" bgColor="bg-red-600" onPress={loadData} ></Button>
                         :
-                        <Button title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={isLoading} ></Button>
+                        <Button title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={!getControl || isLoading} ></Button>
                         }
                         
                     </View>

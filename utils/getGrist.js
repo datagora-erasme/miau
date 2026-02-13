@@ -15,14 +15,14 @@ export async function getGrist(endUrl) {
         if (!response.ok) {
             const errorText = await response.text();
             console.error(errorText)
-            throw new Error()
+            throw new Error(errorText)
         }
     
         const result = await response.json()
         return result
 
     } catch (error) {
-        throw new Error("Erreur de connexion à la base de donnée.")
+        throw new Error(error.text)
     }
 
     }

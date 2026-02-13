@@ -35,7 +35,6 @@ export default function StepThree() {
                 nextName = Number(lastDoc.name) + 1
             }
             AddDocument({uri: result, type: null, name: nextName})    
-            console.log('store', useForm.getState())
         }
     }
     const typeDoc = (item: any, index: number ) => {

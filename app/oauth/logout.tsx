@@ -1,12 +1,8 @@
 import {View, Text} from 'react-native'
-import Button from '../../components/button'
 import {Redirect} from 'expo-router'
 
-
-
 export default function Callback(){
-    return (
-    <Redirect href='/'/>
-
+    return(
+        <Redirect href='/'/>
     )
 }

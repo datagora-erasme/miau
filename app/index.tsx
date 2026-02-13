@@ -1,9 +1,5 @@
 import {useEffect} from 'react'
-import {
-    makeRedirectUri,
-    useAuthRequest,
-    useAutoDiscovery,
-} from "expo-auth-session";
+import { makeRedirectUri, useAuthRequest} from "expo-auth-session";
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
@@ -37,17 +33,9 @@ export default function Index() {
         path: "oauth/callback",
       }),
     },
-    discovery, // Expo va remplir les endpoints grâce à ton URL issuer
+    discovery,
   );
 
-
-  useEffect(() => {
-  if (discovery) {
-    console.log("✅ Discovery chargé avec succès :", discovery.authorizationEndpoint);
-  } else {
-    console.log("⏳ En attente du discovery ou erreur de chargement...");
-  }
-}, [discovery]);
 
   useEffect(() => {
     if (response?.type === 'success') {
@@ -65,6 +53,21 @@ export default function Index() {
             promptAsync()
         }
     }
+  }
+
+  const handlelogOut = async () => {
+    setToken(null)
+    const logoutRedirectUri = makeRedirectUri({
+        scheme: "miau",
+        path: "oauth/logout"
+    })
+    const logoutUrl =`https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`
+    try {
+        const result = await WebBrowser.openAuthSessionAsync(logoutUrl, logoutRedirectUri )
+    } catch (error) {
+        router.replace('/')
+    }
+
   }
 
   return (
@@ -92,7 +95,7 @@ export default function Index() {
         <View className=" bg-gray-200 p-5 gap-5 shadow-lg shadow-black">
           <Text className="text-xl font-extrabold ">Connexion</Text>
 
-          <View className="">
+          <View className="gap-2">
             <Button
               iconName={null}
               title={userToken ? "Accéder au service" : "Se connecter" }
@@ -100,6 +103,12 @@ export default function Index() {
               onPress={handlePress}
               disabled={!request}
             />
+            {userToken ? 
+            <Button iconName="power-standby" title="Déconnexion" bgColor='bg-white' onPress={handlelogOut} disabled={false}></Button>
+            : null
+            
+            }
+            
           </View>
           <View className="flex-row justify-center gap-2">
             <Text className="italic">Version {appVersion}</Text>
