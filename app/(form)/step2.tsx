@@ -62,7 +62,6 @@ export default function StepOne() {
     }
     
     const handleNext = () => {
-        console.log('form', getStore)
         router.push('/(form)/step3')
     }
 

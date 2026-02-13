@@ -2,14 +2,32 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { zustandStorage } from "../lib/storage";
 
+
+interface Auth {
+    userToken: string | null
+    setToken : (token: string | null) => void
+}
+export const useAuthStore = create<Auth>()(
+  persist(
+    (set) => ({
+      userToken: null,
+      setToken: (token: string | null) => set({ userToken: token }),
+    }),
+    {
+      name: "auth-storage",
+      storage: createJSONStorage(() => zustandStorage),
+    },
+  ),
+);
+
 interface Document {
   uri: string[];
   type: string | null;
   name: number | null;
 }
 interface Form {
-  date: number | null
-  expiration_date: number
+  date: number | null;
+  expiration_date: number;
   beneficiary: string | null;
   NumeroDP: string | null;
   controlName: string | null;
@@ -27,7 +45,7 @@ interface Form {
 export const useForm = create<Form>()(
   persist(
     (set) => ({
-      date : null,
+      date: null,
       expiration_date: 12 * 60 * 60 * 1000,
       beneficiary: null,
       NumeroDP: null,

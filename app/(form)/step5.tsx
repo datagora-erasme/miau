@@ -1,16 +1,19 @@
 import {useState, useEffect} from 'react'
-import  {useForm}  from '../../store/useFormStore';
+import  {useForm, useAuthStore}  from '../../store/useFormStore';
 import { useRouter } from 'expo-router'
 import { View, Text, Image} from 'react-native'
 import Button from '../../components/button'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
+
 export default function StepFive() {
     const router = useRouter()
     const {beneficiary, counter, resetData} = useForm((s) => s)
+    const {setToken} = useAuthStore((s) => s)
     const [beneficiaryName, setBeneficiaryName] = useState<string>("")
     const [countOfDocs, setCountOfDocs] = useState<number>(0)
+    console.log("compter", counter)
     
     
     useEffect(() => {
@@ -28,6 +31,7 @@ export default function StepFive() {
     }
 
     const handlelogOut = () => {
+        setToken(null)
         router.replace('/')
     }
     return (

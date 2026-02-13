@@ -47,9 +47,7 @@ export default function StepThree() {
         return
         }
         updateDocument(index, typeValue)
-        
-        console.log("store", Store)
-        
+                
     
     
     }
@@ -94,7 +92,7 @@ export default function StepThree() {
                             <View key={index} className="bg-gray-200 p-3 gap-3 flew-row">
                                 <View className="flex-row justify-between">
                                     <Text className="font-extrabold">Pièce n°{StoredDoc.name}</Text>
-                                    <IconButton name="delete-empty" onPress={() => handleDelete(index)}></IconButton>
+                                    <IconButton name="delete-empty" onPress={() => handleDelete(index)} size={20} color={"black"}></IconButton>
                                 </View>
                                 <DropDown value={StoredDoc.type} data={documentTypes} placeholder="Selectionner le type de document" onChange={(item) => typeDoc(item, index as number)} search={false} ></DropDown>
                             </View>

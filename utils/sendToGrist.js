@@ -3,7 +3,6 @@ import {useForm} from '../store/useFormStore'
 
 export default async function sendToGrist (Form) {
     const deleteDoc = useForm.getState().deleteDocumentByUri
-    const currentCounter = useForm.getState().counter
     const addData =  useForm.getState().addData
     const apiKey = process.env.EXPO_PUBLIC_GRIST_API_KEY
     const docId = process.env.EXPO_PUBLIC_GRIST_DOC_ID
@@ -12,10 +11,11 @@ export default async function sendToGrist (Form) {
     
     
     
+    let success = 0
     for (const [index, doc] of Form.documents.entries()) {
         
         try {
-           
+        
             const formData = new FormData()
             doc.uri.forEach((d, i) => {
                 formData.append('upload', {
@@ -60,10 +60,9 @@ export default async function sendToGrist (Form) {
             if(!response.ok) {
                 throw new Error((doc.name ).toString())
             }
-            const result = await response.json();
-            console.log("Succès Grist:", result);
+            success++
+            addData({counter: success })
             deleteDoc(doc.uri)
-            addData({counter: currentCounter + 1 })
             
             
 

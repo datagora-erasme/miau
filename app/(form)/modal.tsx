@@ -24,7 +24,7 @@ export default function Modal() {
                         <MaterialCommunityIcons name="alert-circle" color="#dc2626" size={30}></MaterialCommunityIcons>
                         <Text className="font-extrabold text-lg">Attention</Text>
                     </View>
-                    <IconButton name="close" onPress={() => router.back()}></IconButton>
+                    <IconButton name="close" onPress={() => router.back()} size={20} color={'black'}></IconButton>
                 </View>
                 <View className="gap-7">
                     <Text>
