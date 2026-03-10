@@ -1,8 +1,8 @@
-import {useEffect} from 'react'
-import { makeRedirectUri, useAuthRequest} from "expo-auth-session";
+import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
+import { useEffect } from 'react';
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/button";
@@ -15,13 +15,12 @@ export default function Index() {
   const router = useRouter();
   const { userToken, setToken } = useAuthStore((s) => s);
 
-
-  
+  const oauthHost = process.env.EXPO_PUBLIC_GRIST_OAUTH_HOST
 
   const discovery = {
-    authorizationEndpoint: 'https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/auth',
-    tokenEnpoint: 'https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/token',
-    revocationEndpoint: 'https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/revoke'
+    authorizationEndpoint: oauthHost + '/realms/metropole/protocol/openid-connect/auth',
+    tokenEnpoint: oauthHost + '/realms/metropole/protocol/openid-connect/token',
+    revocationEndpoint: oauthHost + '/realms/metropole/protocol/openid-connect/revoke'
   }
 
   const [request, response, promptAsync] = useAuthRequest(

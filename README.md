@@ -20,22 +20,9 @@ L'application répond aux enjeux de modernisation des processus métropolitains 
 
 ##  Configuration (Variables d'environnement)
 
-L'application utilise le système de variables d'environnement natif d'Expo. Créez un fichier `.env` à la racine du projet. 
+L'application utilise le système de variables d'environnement natif d'Expo. Créez un fichier `.env` à la racine du projet et remplissez les variables à partir du fichier `.env.EXAMPLE` disponible dans le projet.
 
 > **Important :** Les variables doivent impérativement commencer par `EXPO_PUBLIC_` pour être accessibles via `process.env` et injectées dans le bundle JavaScript `.
-
-```env 
-
-# Clé API de l'agent ou du service
-EXPO_PUBLIC_GRIST_API_KEY=votre_cle_api
-
-# ID du document Grist cible
-EXPO_PUBLIC_GRIST_DOC_ID=votre_doc_id
-
-# Host de l'instance
-EXPO_PUBLIC_GRIST_HOST=grist.projets.votre_host_name
-
-```
 
 ##  Installation & Développement
 

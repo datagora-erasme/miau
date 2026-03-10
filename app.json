@@ -56,8 +56,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "e175ec51-4485-4caa-92a6-882c81613023"
+        "projectId": "488c6e02-2b17-46ed-a1a6-91740d2f5af3"
       }
-    }
+    },
+    "owner": "exo-dev"
   }
 }
