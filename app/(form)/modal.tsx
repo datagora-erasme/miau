@@ -1,10 +1,10 @@
 
-import {View, Text} from 'react-native'
-import IconButton from '../../components/iconButton'
-import Button from '../../components/button'
-import {useRouter} from 'expo-router'
-import  {useForm}  from '../../store/useFormStore';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { Text, View } from 'react-native';
+import Button from '../../components/button';
+import IconButton from '../../components/iconButton';
+import { useForm } from '../../store/useFormStore';
 
 
 export default function Modal() {
@@ -28,7 +28,7 @@ export default function Modal() {
                 </View>
                 <View className="gap-7">
                     <Text>
-                        Vous vous apprêtez à annuler la saisie des informations pour un administré, aucune information ne sera sauvegardée.
+                        Vous vous apprêtez à annuler la saisie des informations pour un bénéficiaire, aucune information ne sera sauvegardée.
                     </Text>
                     <Text>
                         Que souhaitez-vous faire ?
@@ -37,7 +37,6 @@ export default function Modal() {
                 <View className="gap-4">
                     <Button title="Continuer la saisie" bgColor={"bg-red-600"} onPress={() => router.back()} disabled={false}></Button>
                     <Button title="Quitter sans enregistrer" bgColor={"bg-white"} onPress={handleCancel} disabled={false}></Button>
-
                 </View>
             </View>
         </View>

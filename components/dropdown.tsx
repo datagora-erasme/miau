@@ -22,7 +22,7 @@ export default function DropDown({ value, data, placeholder, onChange, search }:
         style={{backgroundColor:"white", height:50, paddingHorizontal:10}}
         data={data}
         search={search}
-        searchPlaceholder="rechercher"
+        searchPlaceholder="Rechercher"
         labelField="label" 
         valueField="value"
         placeholder={placeholder || ""}

@@ -70,16 +70,16 @@ export default function Index() {
   }
 
   return (
-    <SafeAreaView className=" flex-1">
-      <View className="flex-row  h-[10%] w-full gap-10 px-3">
+    <SafeAreaView className="flex-1">
+      <View className="flex-row align-bottom items-center justify-center justify-items-center h-[10%] w-full gap-10 px-3">
         <View className="w-[50%]">
           <Image
             source={require("../assets/images/Miau_logo.png")}
             resizeMode="contain"
-            className="h-full w-full"
+            className="h-[65%]"
           />
         </View>
-        <View className="flex-1 ">
+        <View className="flex-1">
           <Image
             source={require("../assets/images/mgl.png")}
             resizeMode="contain"
@@ -93,7 +93,6 @@ export default function Index() {
         </Text>
         <View className=" bg-gray-200 p-5 gap-5 shadow-lg shadow-black">
           <Text className="text-xl font-extrabold ">Connexion</Text>
-
           <View className="gap-2">
             <Button
               iconName={null}
@@ -105,9 +104,7 @@ export default function Index() {
             {userToken ? 
             <Button iconName="power-standby" title="Déconnexion" bgColor='bg-white' onPress={handlelogOut} disabled={false}></Button>
             : null
-            
             }
-            
           </View>
           <View className="flex-row justify-center gap-2">
             <Text className="italic">Version {appVersion}</Text>
@@ -117,7 +114,7 @@ export default function Index() {
           </View>
         </View>
       </View>
-      <View className=" w-full h-[25%]  relative items-end  ">
+      <View className="w-full h-[25%] relative items-end">
         <Image
           source={require("../assets/images/Vector.png")}
           className="absolute w-full h-full"
@@ -125,7 +122,7 @@ export default function Index() {
         <Image
           source={require("../assets/images/characters.png")}
           resizeMode="cover"
-          className=" h-[100%]"
+          className="h-[100%]"
           style={{ aspectRatio: 1 }}
         />
       </View>

@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react'
 import { useRouter } from 'expo-router'
-import { View, Text} from 'react-native'
-import Stepper from '../../components/stepper'
+import React, { useState } from 'react'
+import { ScrollView, Text, View } from 'react-native'
 import Button from '../../components/button'
-import  {useForm}  from '../../store/useFormStore';
+import Stepper from '../../components/stepper'
+import { useForm } from '../../store/useFormStore'
 import sendToGrist from "../../utils/sendToGrist"
-
-
-
 
 export default function StepFour() {
     const [isLoading, setIsLoading] = useState(false)
@@ -24,7 +21,6 @@ export default function StepFour() {
         setError(null)
         setIsLoading(true)
         try {
-            
             await sendToGrist(Form)
             router.push('/(form)/step5')
         } catch(error: any) {
@@ -45,10 +41,8 @@ export default function StepFour() {
         router.push('/modal')
     }
 
-
-    
     return(
-        <View className="">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={4}></Stepper>
                 <View className="gap-2 flex-row">
@@ -59,9 +53,9 @@ export default function StepFour() {
                     {error ? <Text className=" text-red-600">{error}</Text> : null }
                     <View className="flex-row gap-3">
                         <Text className="italic">Vous allez transmettre :</Text>
-                        {docs&& 
+                        {docs > 0 ? (
                         <Text className='font-extrabold'>{docs} pièce{docs > 1 ? "s" : ""}</Text>
-                        }
+                        ) : null }
                     </View>
                         {documents ? documents.map((doc, index) => {
                             return (
@@ -86,6 +80,6 @@ export default function StepFour() {
                         <Button iconName={"check-circle-outline"} title={isLoading ? "Envoi..." : error ? "Réessayer" : "Envoyer"} bgColor='bg-red-600' onPress={handleSend} disabled={isLoading} isLoading={isLoading}></Button>
                     </View> 
             </View>
-        </View>
+        </ScrollView>
     )
 }

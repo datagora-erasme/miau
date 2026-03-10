@@ -1,16 +1,15 @@
 import { useRouter } from 'expo-router'
-import {useState, useEffect} from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
-import Stepper from '../../components/stepper'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native'
 import Button from '../../components/button'
 import DropDown from '../../components/dropdown'
-import  {useForm}  from '../../store/useFormStore';
-import {getGrist} from '../../utils/getGrist'
-
+import Stepper from '../../components/stepper'
+import { useForm } from '../../store/useFormStore'
+import { getGrist } from '../../utils/getGrist'
 
 interface GristRecord {
     fields: {
-        Beneficiaire: string,
+        Numero_individu_Beneficiaire: string,
         Numero_DP: string
     }
 }
@@ -36,7 +35,7 @@ export default function StepOne() {
             const result = await getGrist('Beneficiaires/records')
             // throw new Error()
             const formatted_data = result.records.map((record : GristRecord) => ({
-            label: record.fields.Beneficiaire, value: record.fields.Numero_DP
+            label: record.fields.Numero_individu_Beneficiaire, value: record.fields.Numero_DP
             }))
             setData(formatted_data)
         } catch (error: any) {
@@ -49,7 +48,6 @@ export default function StepOne() {
         } finally {
             setIsLoading(false)
             }
-        
     }
 
     useEffect(() => {
@@ -73,7 +71,7 @@ export default function StepOne() {
         }
     }
     return(
-        <View className="">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={1}></Stepper>
                     {error ? 
@@ -87,7 +85,7 @@ export default function StepOne() {
                     </View>
                     :<View className="gap-2">
                         <Text>Séléctionner un bénéficiaire :</Text>
-                    <DropDown value={beneficiary} data={data} placeholder="Taper les premières lettres" onChange={onChangeBeneficiary} search={true} ></DropDown>
+                    <DropDown value={beneficiary} data={data} placeholder="Saisissez les premières lettres" onChange={onChangeBeneficiary} search={true} ></DropDown>
                     </View>
                     }
                 <View>
@@ -95,12 +93,11 @@ export default function StepOne() {
                         {error ? 
                         <Button title="Réessayer" bgColor="bg-red-600" onPress={loadData} ></Button>
                         :
-                        <Button title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={!beneficiary}  ></Button>
+                        <Button title="Suivant" bgColor='bg-red-600' onPress={handleNext} disabled={!beneficiary}></Button>
                         }
-                        
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }

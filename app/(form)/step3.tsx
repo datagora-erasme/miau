@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, ScrollView, Text, View } from 'react-native';
 import Button from '../../components/button';
 import DropDown from '../../components/dropdown';
 import IconButton from '../../components/iconButton';
@@ -8,13 +8,9 @@ import Stepper from '../../components/stepper';
 import { useForm } from '../../store/useFormStore';
 import { scanDocument } from "../../utils/scanDocument";
 
-
-
-
-
 export default function StepThree() {
     const router = useRouter()
-    const documentTypes = [{label: "Ticket de caisse", value: "Ticket de caisse"}, {label:"Echéancier", value: "Echéancier" }, {label: "Certificat Médical", value: "Certificat Médical" }]
+    const documentTypes = [{label: "Ticket de caisse", value: "Ticket de caisse"}, {label:"Echéancier", value: "Echéancier" }, {label: "Facture", value: "Facture" }]
 
     const person = useForm((state) => state.beneficiary)
     const Store = useForm((state) => state)
@@ -25,7 +21,6 @@ export default function StepThree() {
     const AllTyped = StoredDocs && StoredDocs.length > 0 && StoredDocs.every((StoredDoc) => StoredDoc.type !== null )
     const CanAdd = StoredDocs.length === 0 || AllTyped
 
-    
     const handleScan = async () => {
         if (Platform.OS === 'web') {
             return null;
@@ -45,14 +40,11 @@ export default function StepThree() {
         const errors = []
         const typeValue = item.value
         if (!StoredDocs || !StoredDocs[index]){
-        errors.push("scan introuvable")
-        console.error('pas de scan trouvé')
-        return
+            errors.push("Scan introuvable")
+            console.error('Pas de scan trouvé')
+            return
         }
         updateDocument(index, typeValue)
-                
-    
-    
     }
 
     const handleDelete = (index: number) => {
@@ -63,13 +55,10 @@ export default function StepThree() {
 
     }
     const handleNext = () => {
-        
         router.push('/(form)/step4')
-
     }
 
     const handlePrevious = () => {
-        
         router.back()
     }
 
@@ -78,16 +67,16 @@ export default function StepThree() {
     }
     
     return(
-        <View className="">
-            <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
+            <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black">
                 <Stepper currentStep={3}></Stepper>
                 <View className="gap-2 flex-row">
                     <Text>Dossier :</Text>
                     <Text className="font-extrabold">{person}</Text>
                 </View>
-                <View className=" bg-white p-3 gap-2 ">
+                <View className="bg-white p-3 gap-2">
                     <View className="flex-row gap-3">
-                        <Text>Nombre de pièces:</Text>
+                        <Text>Nombre de pièces :</Text>
                         <Text className='font-extrabold'>{StoredDocs?.length  === 0 ? "0" : StoredDocs?.length }</Text>
                     </View>
                     {StoredDocs ? StoredDocs.map((StoredDoc, index) => {
@@ -97,14 +86,12 @@ export default function StepThree() {
                                     <Text className="font-extrabold">Pièce n°{StoredDoc.name}</Text>
                                     <IconButton name="delete-empty" onPress={() => handleDelete(index)} size={20} color={"black"}></IconButton>
                                 </View>
-                                <DropDown value={StoredDoc.type} data={documentTypes} placeholder="Selectionner le type de document" onChange={(item) => typeDoc(item, index as number)} search={false} ></DropDown>
+                                <DropDown value={StoredDoc.type} data={documentTypes} placeholder="Sélectionnez le type de document" onChange={(item) => typeDoc(item, index as number)} search={false} ></DropDown>
                             </View>
                         )
                     }) : null
                     }
-
                     <View>
-
                     </View>
                     <Button iconName="plus" title="Ajouter une pièce" bgColor="bg-red-600" onPress={(handleScan)} disabled={!CanAdd}></Button>
                 </View>
@@ -116,7 +103,7 @@ export default function StepThree() {
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

@@ -1,12 +1,12 @@
-import { Link, useRouter } from 'expo-router'
-import {useState, useEffect} from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
-import Stepper from '../../components/stepper'
-import DropDown from '../../components/dropdown'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native'
 import Button from '../../components/button'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import  {useForm}  from '../../store/useFormStore';
-import {getGrist} from '../../utils/getGrist'
+import DropDown from '../../components/dropdown'
+import Stepper from '../../components/stepper'
+import { useForm } from '../../store/useFormStore'
+import { getGrist } from '../../utils/getGrist'
 
 interface GristData {
     id: number
@@ -67,9 +67,7 @@ export default function StepOne() {
     }
 
     const handlePrevious = () => {
-        
         router.push('/(form)/step1')
-
     }
 
     const handleCancel = () => {
@@ -77,7 +75,7 @@ export default function StepOne() {
     }
 
     return(
-        <View className="">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
             <View className="bg-gray-200 p-5 my-5 mx-10 gap-5 shadow-lg shadow-black ">
                 <Stepper currentStep={2}></Stepper>
                     {info ?
@@ -113,6 +111,6 @@ export default function StepOne() {
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }

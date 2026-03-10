@@ -31,7 +31,7 @@ export default function FormLayout() {
 
 
   return (
-    <SafeAreaView className=" flex-1">
+    <SafeAreaView className="flex-1">
       <View className="py-2 px-4 bg-red-800 h-[4em] flex-row justify-between items-center">
         <View>
           <Text className="text-white font-extrabold">Contrôle</Text>

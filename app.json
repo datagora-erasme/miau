@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "miau",
+    "name": "Miau",
     "slug": "miau",
     "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/demo/icon.png",
+    "icon": "./assets/images/App_icon.png",
     "scheme": "miau",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,9 +14,9 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/image/App_icon.png",
-        "backgroundImage": "./assets/image/App_icon.png",
-        "monochromeImage": "./assets/image/App_icon.png"
+        "foregroundImage": "./assets/images/App_icon.png",
+        "backgroundImage": "./assets/images/App_icon.png",
+        "monochromeImage": "./assets/images/App_icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -25,7 +25,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/demo/favicon.png"
+      "favicon": "./assets/images/App_icon.png"
     },
     "plugins": [
       "expo-router",
@@ -39,7 +39,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/demo/splash-icon.png",
+          "image": "./assets/images/Miau_logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
