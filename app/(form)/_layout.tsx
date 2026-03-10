@@ -10,13 +10,15 @@ export default function FormLayout() {
   const router = useRouter();
   const { setToken } = useAuthStore((s) => s);
 
+  const oauthHost = process.env.EXPO_PUBLIC_OAUTH_HOST
+
   const onPress = async () => {
     setToken(null);
     const logoutRedirectUri = makeRedirectUri({
       scheme: "miau",
       path: "oauth/logout",
     });
-    const logoutUrl = `https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`;
+    const logoutUrl = oauthHost + `/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`;
     try {
       const result = await WebBrowser.openAuthSessionAsync(
         logoutUrl,

@@ -15,7 +15,7 @@ export default function Index() {
   const router = useRouter();
   const { userToken, setToken } = useAuthStore((s) => s);
 
-  const oauthHost = process.env.EXPO_PUBLIC_GRIST_OAUTH_HOST
+  const oauthHost = process.env.EXPO_PUBLIC_OAUTH_HOST
 
   const discovery = {
     authorizationEndpoint: oauthHost + '/realms/metropole/protocol/openid-connect/auth',
@@ -39,7 +39,7 @@ export default function Index() {
   useEffect(() => {
     if (response?.type === 'success') {
       const { code } = response.params;
-      setToken(code); // On sauve dans MMKV
+      setToken(code); // On sauve dans MMKV 
       router.replace('/step1'); // Navigation immédiate après succès
     }
   }, [response]);
@@ -60,7 +60,7 @@ export default function Index() {
         scheme: "miau",
         path: "oauth/logout"
     })
-    const logoutUrl =`https://dev-auth.exo-dev.fr:44301/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`
+    const logoutUrl = oauthHost + `/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`
     try {
         const result = await WebBrowser.openAuthSessionAsync(logoutUrl, logoutRedirectUri )
     } catch (error) {
@@ -74,7 +74,7 @@ export default function Index() {
       <View className="flex-row  h-[10%] w-full gap-10 px-3">
         <View className="w-[50%]">
           <Image
-            source={require("../assets/images/Miaau.png")}
+            source={require("../assets/images/Miau_logo.png")}
             resizeMode="contain"
             className="h-full w-full"
           />

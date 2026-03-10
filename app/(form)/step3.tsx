@@ -1,12 +1,12 @@
-import React from 'react'
-import { useRouter } from 'expo-router'
-import {scanDocument} from "../../utils/scanDocument" 
-import { View, Text} from 'react-native'
-import Stepper from '../../components/stepper'
-import Button from '../../components/button'
-import  {useForm}  from '../../store/useFormStore';
-import DropDown from '../../components/dropdown'
-import IconButton from '../../components/iconButton'
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Platform, Text, View } from 'react-native';
+import Button from '../../components/button';
+import DropDown from '../../components/dropdown';
+import IconButton from '../../components/iconButton';
+import Stepper from '../../components/stepper';
+import { useForm } from '../../store/useFormStore';
+import { scanDocument } from "../../utils/scanDocument";
 
 
 
@@ -27,6 +27,10 @@ export default function StepThree() {
 
     
     const handleScan = async () => {
+        if (Platform.OS === 'web') {
+            return null;
+        }
+
         const result = await scanDocument()
         if ( result && result.length > 0) {
             let nextName = 1

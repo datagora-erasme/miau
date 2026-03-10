@@ -1,6 +1,5 @@
 import DocumentScanner from 'react-native-document-scanner-plugin';
 
-
 export const scanDocument = async () => {
     try {
         const result = await DocumentScanner.scanDocument({maxNumDocuments:2})
@@ -9,5 +8,4 @@ export const scanDocument = async () => {
         console.error("erreur scan", error)
         return []
     }
-
 }

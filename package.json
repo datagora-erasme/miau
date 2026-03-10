@@ -1,7 +1,7 @@
 {
   "name": "miau",
   "main": "expo-router/entry",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -47,12 +47,13 @@
     "zustand": "5.0.11"
   },
   "devDependencies": {
-    "@types/react": "19.1.0",
+    "@types/react": "19.1.10",
     "eslint": "9.25.0",
     "eslint-config-expo": "10.0.0",
     "prettier-plugin-tailwindcss": "0.5.11",
     "tailwindcss": "3.4.17",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "@react-native-community/cli": "latest"
   },
   "private": true
 }
