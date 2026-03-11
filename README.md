@@ -30,28 +30,49 @@ L'utilisation de modules natifs (MMKV, Scanner) nécessite un **Development Clie
 Ce workflow permet de compiler l'application via le cloud d'Expo (**EAS**), sans installation locale d'Android Studio.
 
 ### Pré-requis
-```bash
-
 - Un compte sur expo.dev
-- CLI EAS installé : npm install -g eas-cli
+- CLI EAS installé : ```npm install -g eas-cli```
 
+```bash
 # 1. Installation des dépendances
 npm install
 
 # 2. Connexion à votre compte Expo
 npx expo login
 
-# 3. Génération du Client de Développement (Android). Cette commande crée l'APK natif sur les serveurs d'Expo.
+# 3. Lancement du serveur de développement
+npx expo start
+
+# 4. Génération du Client de Développement (Android). Cette commande crée l'APK natif sur les serveurs d'Expo.
 eas build --profile development --platform android
 
-# 4. Lancement du serveur de développement
-npx expo start
+# 4bis. Génération de l'APK en local
+# Pour cette étape, consultez : https://docs.expo.dev/get-started/set-up-your-environment/?mode=development-build&buildEnv=local
+npx expo prebuild
+cd android
+./gradlew assembleDebug
+
+# L'APK générée se trouyvera dans
+android/app/build/outputs/apk/debug/app-debug.apk
+
+# 5. Vous pouvez aussi lancer l'application en mode development sur votre téléphone
+npx expo run:android
+
+# Pensez à vérifier la connexion avec ADB
+adb devices
+# Dans le cas d'une connexion USB, il peut être nécessaire de faire un adb reverse
+adb reverse tcp:8081 tcp:8081
 ```
 
 Une fois le build terminé, installez l'APK sur votre appareil Android.  
 Lancez ensuite le serveur et ouvrez l'application **Miau** pour charger votre code.
 
-
+```bash
+# Pour créer un APK de Production (Release)
+npx expo prebuild
+cd android
+./gradlew assembleRelease
+```
 
 ##  Architecture du Projet
 

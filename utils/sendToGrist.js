@@ -1,5 +1,5 @@
 
-import {useForm} from '../store/useFormStore'
+import { useForm } from '../store/useFormStore'
 
 export default async function sendToGrist (Form) {
     const deleteDoc = useForm.getState().deleteDocumentByUri
@@ -35,7 +35,6 @@ export default async function sendToGrist (Form) {
                 body: formData
             })
             const resultImg = await sendingImg.json()
-            console.log('resultimgids', resultImg)
     
             const response = await fetch(`https://${hostName}/api/docs/${docId}/tables/Justificatifs/records`, {
                 method: 'POST',

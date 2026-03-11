@@ -39,12 +39,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/Miau_logo.png",
+          "image": "./assets/images/App_icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#ffffff"
           }
         }
       ]
