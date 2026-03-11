@@ -18,7 +18,7 @@ export default function FormLayout() {
       scheme: "miau",
       path: "oauth/logout",
     });
-    const logoutUrl = oauthHost + `/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`;
+    const logoutUrl = oauthHost + `/realms/exodev/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`;
     try {
       const result = await WebBrowser.openAuthSessionAsync(
         logoutUrl,

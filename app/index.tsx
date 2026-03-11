@@ -18,9 +18,9 @@ export default function Index() {
   const oauthHost = process.env.EXPO_PUBLIC_OAUTH_HOST
 
   const discovery = {
-    authorizationEndpoint: oauthHost + '/realms/metropole/protocol/openid-connect/auth',
-    tokenEnpoint: oauthHost + '/realms/metropole/protocol/openid-connect/token',
-    revocationEndpoint: oauthHost + '/realms/metropole/protocol/openid-connect/revoke'
+    authorizationEndpoint: oauthHost + '/realms/exodev/protocol/openid-connect/auth',
+    tokenEnpoint: oauthHost + '/realms/exodev/protocol/openid-connect/token',
+    revocationEndpoint: oauthHost + '/realms/exodev/protocol/openid-connect/revoke'
   }
 
   const [request, response, promptAsync] = useAuthRequest(
@@ -60,7 +60,7 @@ export default function Index() {
         scheme: "miau",
         path: "oauth/logout"
     })
-    const logoutUrl = oauthHost + `/realms/metropole/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`
+    const logoutUrl = oauthHost + `/realms/exodev/protocol/openid-connect/logout?client_id=miau&post_logout_redirect_uri=${encodeURIComponent(logoutRedirectUri)}`
     try {
         const result = await WebBrowser.openAuthSessionAsync(logoutUrl, logoutRedirectUri )
     } catch (error) {
